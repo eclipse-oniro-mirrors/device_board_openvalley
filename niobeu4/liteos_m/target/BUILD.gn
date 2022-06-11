@@ -1,0 +1,189 @@
+# Copyright (c) 2022 OpenValley Digital Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//kernel/liteos_m/liteos.gni")
+module_name = get_path_info(rebase_path("."), "name")
+kernel_module(module_name) {
+  sources = [
+    "target_run.c",
+    "target_startup.o",
+  ]
+  include_dirs = [
+    "//kernel/liteos_m/include",
+    "//kernel/liteos_m/kernel/include",
+    "//utils/native/lite/include",
+    "//utils/native/lite/memory/include",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
+    "//base/hiviewdfx/hiview_lite",
+    "//base/hiviewdfx/hilog_lite/frameworks/mini",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//drivers/framework/core/common/include/manager",
+  ]
+}
+
+config("public") {
+  ESP_SDK_PATH="//device/soc/espressif/esp32/components/"
+  include_dirs = [
+    ".",
+    "../include",
+    ESP_SDK_PATH+"esp_rom/include",
+    ESP_SDK_PATH+"esp_rom/esp32",
+    ESP_SDK_PATH+"esp_rom/include/esp32",
+    ESP_SDK_PATH+"spi_flash/include",
+    ESP_SDK_PATH+"spiffs/include",
+    ESP_SDK_PATH+"lwip",
+    ESP_SDK_PATH+"lwip/lwip/src/include",
+    ESP_SDK_PATH+"lwip/port/esp32/include",
+    ESP_SDK_PATH+"esp_common/include",
+    ESP_SDK_PATH+"driver/include",
+    ESP_SDK_PATH,
+    ESP_SDK_PATH+"xtensa/include",
+    ESP_SDK_PATH+"esp_system/include",
+    ESP_SDK_PATH+"soc/esp32/include",
+    ESP_SDK_PATH+"hal/include",
+    ESP_SDK_PATH+"hal/esp32/include",
+    ESP_SDK_PATH+"soc/include",
+    ESP_SDK_PATH+"esp_rom/include",
+    ESP_SDK_PATH+"freertos/include",
+    ESP_SDK_PATH+"freertos/port/xtensa/include",
+    ESP_SDK_PATH+"xtensa/esp32/include",
+    ESP_SDK_PATH+"esp_timer/include",
+    ESP_SDK_PATH+"newlib/platform_include",
+    ESP_SDK_PATH+"esp_hw_support/include",
+    ESP_SDK_PATH+"heap/include",
+    ESP_SDK_PATH+"log/include",
+    ESP_SDK_PATH+"hal/esp32/include",
+    ESP_SDK_PATH+"hal/include",
+    ESP_SDK_PATH+"spi_flash/include",
+    ESP_SDK_PATH+"nvs_flash/include",
+  ]
+  lib_dirs = [ 
+    rebase_path(ESP_SDK_PATH+"libs"),
+    "$root_out_dir/libs"
+  ]
+  ldflags = [
+    "-nostdlib",
+    "-ucall_user_start_cpu0",
+    "-Wl,--gc-sections",
+    "-Wl,-static",
+    "-uesp_app_desc",
+    "-Wl,--wrap=_Unwind_SetEnableExceptionFdeSorting",
+    "-Wl,--wrap=__register_frame_info_bases",
+    "-Wl,--wrap=__register_frame_info",
+    "-Wl,--wrap=__register_frame",
+    "-Wl,--wrap=__register_frame_info_table_bases",
+    "-Wl,--wrap=__register_frame_info_table",
+    "-Wl,--wrap=__register_frame_table",
+    "-Wl,--wrap=__deregister_frame_info_bases",
+    "-Wl,--wrap=__deregister_frame_info",
+    "-Wl,--wrap=_Unwind_Find_FDE",
+    "-Wl,--wrap=_Unwind_GetGR",
+    "-Wl,--wrap=_Unwind_GetCFA",
+    "-Wl,--wrap=_Unwind_GetIP",
+    "-Wl,--wrap=_Unwind_GetIPInfo",
+    "-Wl,--wrap=_Unwind_GetRegionStart",
+    "-Wl,--wrap=_Unwind_GetDataRelBase",
+    "-Wl,--wrap=_Unwind_GetTextRelBase",
+    "-Wl,--wrap=_Unwind_SetIP",
+    "-Wl,--wrap=_Unwind_SetGR",
+    "-Wl,--wrap=_Unwind_GetLanguageSpecificData",
+    "-Wl,--wrap=_Unwind_FindEnclosingFunction",
+    "-Wl,--wrap=_Unwind_Resume",
+    "-Wl,--wrap=_Unwind_RaiseException",
+    "-Wl,--wrap=_Unwind_DeleteException",
+    "-Wl,--wrap=_Unwind_ForcedUnwind",
+    "-Wl,--wrap=_Unwind_Resume_or_Rethrow",
+    "-Wl,--wrap=_Unwind_Backtrace",
+    "-Wl,--wrap=__cxa_call_unexpected",
+    "-Wl,--wrap=__gxx_personality_v0",
+    "-Wl,--wrap=OsMemSystemInit",
+    "-Wl,--wrap=LOS_MemAlloc",
+    "-Wl,--wrap=LOS_MemFree",
+    "-Wl,--wrap=LOS_MemAllocAlign",
+    "-Wl,--wrap=OsShellCmdFree",
+#    "-Wl,--wrap=_exit",
+#    "-Wl,--wrap=ioctl",
+#    "-Wl,--wrap=LOS_FsMount",
+    "-u__cxx_fatal_exception",
+    "-Tesp32_out.ld",
+    "-uld_include_panic_highint_hdl",
+    "-Tesp32.project.ld",
+    "-Tesp32.peripherals.ld",
+    # "-Tesp32.rom.ld",
+    "-Tesp32.rom.libgcc.ld",
+    # "-Tesp32.rom.syscalls.ld",
+    # "-Tesp32.rom.newlib-data.ld",
+    # "-Tesp32.rom.api.ld",
+    "-Tesp32.rom.tw.ld",
+    # "-Tesp32.rom.newlib-funcs.ld",
+    # "-Tesp32.rom.newlib-time.ld",
+    "-Wl,--wrap=longjmp",
+    "-Wl,--undefined=uxTopUsedPriority",
+    "-Wl,--wrap=mbedtls_mpi_exp_mod",
+    "-unewlib_include_heap_impl",
+    "-unewlib_include_syscalls_impl",
+    "-upthread_include_pthread_impl",
+    "-upthread_include_pthread_cond_impl",
+    "-upthread_include_pthread_local_storage_impl",
+    "-Wl,-EL",
+    "-fno-rtti",
+  ]
+  defines = ["__XTENSA_LX6__=1"]
+  libs = [
+    "c",
+    "m",
+    "gcc",
+    "stdc++",
+    "core",
+    "rtc",
+    "net80211",
+    "pp",
+    "phy",
+    "xt_hal",
+  ]
+
+  if(build_xts) {
+    ldflags += [
+      "-Wl,--whole-archive",
+      "-lbootstrap",
+      "-lbroadcast",
+      "-lhctest",
+
+      "-lmodule_ActsSamgrTest",
+
+      "-lmodule_ActsUtilsFileTest",
+      "-lmodule_ActsKvStoreTest",
+      "-lmodule_ActsParameterTest",
+      "-lmodule_ActsBootstrapTest",
+      "-lmodule_ActsDfxFuncTest",
+      "-lmodule_ActsHieventLiteTest",
+
+      "-lmodule_ActsWifiServiceTest",
+#       "-lmodule_ActsLwipTest",
+      "-lmodule_ActsWifiIotTest",
+      # "-lmodule_ActsDsoftbusMgrTest",
+
+      "-lhota",
+      "-lhal_update_static",
+      "-lmodule_ActsUpdaterFuncTest",
+
+      "-lhuks_test_common",
+      "-lmodule_ActsHuksHalFunctionTest",
+      "-Wl,--no-whole-archive",
+    ]
+    defines += [ 
+      "CONFIG_I2C_SUPPORT",
+      "CONFIG_PWM_SUPPORT",
+    ]
+  }
+}

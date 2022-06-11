@@ -1,0 +1,229 @@
+# Copyright (c) 2022 OpenValley Digital Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+menuconfig BOARD_NIOBEU4
+    bool "select board niobeu4"
+    depends on SOC_ESP32
+
+if BOARD_NIOBEU4
+config USE_TALKWEB_COMPONENTS
+    bool "use talkweb components"
+    default n
+    help
+        This is a switch for use talkweb component.
+
+config DRIVERS_HDF_PLATFORM_WIFI
+    bool "use wifi components"
+    default n
+    help
+        This is a switch for use wifi component.
+
+config USE_TALKWEB_MAILBOX
+    bool "use mailbox components"
+    default n
+    help
+        This is a switch for use mailbox component.
+
+config TALKWEB_TWNFC_COMPONENT
+    bool "use the nfc component"
+    default n
+    help
+        This is a switch for nfc component.
+
+config USE_TALKWEB_TASK_WDT
+    bool "use task watchdog components"
+    default n
+    help
+        This is a switch for use task watchdog component.
+
+config USE_TALKWEB_TASK_WDT_TIMEOUT
+    int "task watchdog timeout(seconds)"
+    range 1 6000
+    default 5
+    depends on USE_TALKWEB_TASK_WDT
+
+if USE_TALKWEB_COMPONENTS
+config TALKWEB_DEVICEAUTH_COMPONENT
+    bool "use the deviceauth component"
+    default n
+    help
+        This is a switch for deviceauth component.
+
+config TALKWEB_SNTP_MANAGER_COMPONENT
+    bool "use the sntpmanager component"
+    default n
+    help
+        This is a switch for sntpmanager component.
+
+config TALKWEB_TLINKSDK_COMPONENT
+    bool "use the tlinksdk component" if TALKWEB_DEVICEAUTH_COMPONENT
+    default y
+    help
+        This is a switch for tlinksdk component.
+
+config TALKWEB_TWOTA_COMPONENT
+    bool "use the twota components"
+    default n
+    help
+        This is a switch for twota component.
+
+
+endif #USE_TALKWEB_COMPONENTS
+
+config USE_TALKWEB_APPLICATION
+    bool "use talkweb niobeu4 application"
+    default n
+    help
+        This is a switch for use talkweb niobe407 application.
+        If you want to write your application code, please close it.
+
+choice
+        prompt "niobeu4 application choose"
+        depends on USE_TALKWEB_APPLICATION
+        default NIOBEU4_APPLICATION_001
+        help
+            This is a choose for application name
+        config NIOBEU4_APPLICATION_001
+            bool "001_system_helloworld"
+        config NIOBEU4_APPLICATION_002
+            bool "002_system_thread"
+        config NIOBEU4_APPLICATION_003
+            bool "003_system_timer"
+        config NIOBEU4_APPLICATION_004
+            bool "004_system_event"
+        config NIOBEU4_APPLICATION_005
+            bool "005_system_mutex"
+        config NIOBEU4_APPLICATION_006
+            bool "006_system_semp"
+        config NIOBEU4_APPLICATION_007
+            bool "007_system_message"
+        config NIOBEU4_APPLICATION_011
+            bool "011_system_los_thread"
+        config NIOBEU4_APPLICATION_012
+            bool "012_system_los_timer"
+        config NIOBEU4_APPLICATION_013
+            bool "013_system_los_event"
+        config NIOBEU4_APPLICATION_014
+            bool "014_system_los_mutex"
+        config NIOBEU4_APPLICATION_015
+            bool "015_system_los_semp"
+        config NIOBEU4_APPLICATION_016
+            bool "016_system_los_message"
+        config NIOBEU4_APPLICATION_017
+            bool "017_system_ringbuf"
+        config NIOBEU4_APPLICATION_018
+            bool "018_system_mailbox"
+            select USE_TALKWEB_MAILBOX
+        config NIOBEU4_APPLICATION_019
+            bool "019_system_taskwdt"
+            select USE_TALKWEB_TASK_WDT
+
+        config NIOBEU4_APPLICATION_200
+            bool "200_hdf_watchdog"
+            select DRIVERS
+            select DRIVERS_HDF
+            select DRIVERS_HDF_PLATFORM
+            select DRIVERS_HDF_PLATFORM_WATCHDOG
+
+         config NIOBEU4_APPLICATION_301
+            bool "301_network_tcpclient"
+
+        config NIOBEU4_APPLICATION_302
+            bool "302_network_tcpserver"
+
+        config NIOBEU4_APPLICATION_303
+            bool "303_network_udptest"
+
+        config NIOBEU4_APPLICATION_304
+            bool "304_network_twlink_example"
+
+        config NIOBEU4_APPLICATION_305
+            bool "305_network_sntpclient_example"
+            
+        config NIOBEU4_APPLICATION_306
+            bool "306_network_httpclient_example"
+
+        config NIOBEU4_APPLICATION_307
+            bool "307_network_ota_example"
+
+        config NIOBEU4_APPLICATION_308
+            bool "308_network_hwiotlink_example"
+
+        config NIOBEU4_APPLICATION_401
+            bool "401_file_nvs"
+        config NIOBEU4_APPLICATION_402
+            bool "402_file_littlefs"
+            select FS_VFS
+            select FS_LITTLEFS
+        config NIOBEU4_APPLICATION_403
+            bool "403_spi_lcd"
+        config NIOBEU4_APPLICATION_405
+            bool "405_LogLevel"
+        config NIOBEU4_APPLICATION_406
+            bool "406_UART"
+        config NIOBEU4_APPLICATION_407
+            bool "407_NFC"
+        config NIOBEU4_APPLICATION_501
+            select FS_VFS
+            bool "501_WIFI_STA"
+        config NIOBEU4_APPLICATION_601
+            bool "601_I2C"
+        config NIOBEU4_APPLICATION_701
+            bool "701_GPIO"
+        config NIOBEU4_APPLICATION_702
+            bool "702_GPIO_INTERRUPT"  
+        config NIOBEU4_APPLICATION_801
+            bool "801_ADC"              
+endchoice
+
+config NIOBEU4_APPLICATION_NAME
+    string
+    depends on USE_TALKWEB_APPLICATION
+    default "001_system_helloworld" if NIOBEU4_APPLICATION_001
+    default "002_system_thread" if NIOBEU4_APPLICATION_002
+    default "003_system_timer" if NIOBEU4_APPLICATION_003
+    default "004_system_event" if NIOBEU4_APPLICATION_004
+    default "005_system_mutex" if NIOBEU4_APPLICATION_005
+    default "006_system_semp" if NIOBEU4_APPLICATION_006
+    default "007_system_message" if NIOBEU4_APPLICATION_007
+    default "011_system_los_thread" if NIOBEU4_APPLICATION_011
+    default "012_system_los_timer" if NIOBEU4_APPLICATION_012
+    default "013_system_los_event" if NIOBEU4_APPLICATION_013
+    default "014_system_los_mutex" if NIOBEU4_APPLICATION_014
+    default "015_system_los_semp" if NIOBEU4_APPLICATION_015
+    default "016_system_los_message" if NIOBEU4_APPLICATION_016
+    default "017_system_ringbuf" if NIOBEU4_APPLICATION_017
+    default "018_system_mailbox" if NIOBEU4_APPLICATION_018
+    default "019_system_taskwdt" if NIOBEU4_APPLICATION_019
+    default "200_hdf_watchdog" if NIOBEU4_APPLICATION_200
+    default "301_network_tcpclient" if NIOBEU4_APPLICATION_301
+    default "302_network_tcpserver" if NIOBEU4_APPLICATION_302
+    default "303_network_udptest" if NIOBEU4_APPLICATION_303
+    default "304_network_twlink_example" if NIOBEU4_APPLICATION_304
+    default "305_network_sntpclient_example" if NIOBEU4_APPLICATION_305
+    default "306_network_httpclient_example" if NIOBEU4_APPLICATION_306
+    default "307_network_ota_example" if NIOBEU4_APPLICATION_307
+    default "308_network_hwiotlink_example" if NIOBEU4_APPLICATION_308
+    default "401_file_nvs" if NIOBEU4_APPLICATION_401
+    default "402_file_littlefs" if NIOBEU4_APPLICATION_402
+    default "403_spi_lcd" if NIOBEU4_APPLICATION_403
+    default "405_LogLevel" if NIOBEU4_APPLICATION_405
+    default "406_UART" if NIOBEU4_APPLICATION_406
+    default "407_NFC" if NIOBEU4_APPLICATION_407
+    default "501_WIFI_STA" if NIOBEU4_APPLICATION_501
+    default "601_I2C" if NIOBEU4_APPLICATION_601
+    default "701_GPIO" if NIOBEU4_APPLICATION_701
+    default "702_GPIO_INTERRUPT" if NIOBEU4_APPLICATION_702
+    default "801_ADC" if NIOBEU4_APPLICATION_801
+
+endif #BOARD_NIOBEU4

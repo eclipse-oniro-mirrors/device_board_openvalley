@@ -1,0 +1,10 @@
+{
+  "subsystem":"device_niobeu4",
+  "parts": {
+    "device_niobeu4": {
+      "module_list": [
+        "//device/board/openvalley/niobeu4:process_after_build"
+      ]
+    }
+  }
+}

@@ -1,0 +1,44 @@
+# Copyright (c) 2022 OpenValley Digital Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+module_switch = defined(LOSCFG_DRIVERS_HDF_PLATFORM_WIFI)
+hdf_driver("wifi_sta") {
+  sources = [
+    "wifi_sta.c",
+  ]
+  include_dirs = [
+    "//foundation/communication/wifi_lite/interfaces/wifiservice",
+    "//device/soc/espressif/esp32/components/lwip/include/apps",
+    "//device/soc/espressif/esp32/components/lwip/include/apps/sntp",
+    "//device/soc/espressif/esp32/components/lwip/lwip/src/include",
+    "//device/soc/espressif/esp32/components/lwip/port/esp32/include",
+    "//device/soc/espressif/esp32/components/lwip/port/esp32/include/arch",
+    "//device/soc/espressif/esp32/components/esp_common/include",
+    "//device/soc/espressif/esp32/components",
+    "//device/soc/espressif/esp32/components/freertos/include",
+    "//device/soc/espressif/esp32/components/freertos/port/xtensa/include",
+    "//device/soc/espressif/esp32/components/xtensa/include",
+    "//device/soc/espressif/esp32/components/xtensa/esp32/include",
+    "//device/soc/espressif/esp32/components/esp_rom/include",
+    "//device/soc/espressif/esp32/components/spi_flash/sim/stubs/esp_timer/include",
+    "//device/soc/espressif/esp32/components/esp_system/include",
+    "//device/soc/espressif/esp32/components/newlib/platform_include",
+    "//device/soc/espressif/esp32/components/esp_hw_support/include",
+    "//device/soc/espressif/esp32/components/hal/include",
+    "//device/soc/espressif/esp32/components/soc/esp32/include",
+    "//device/soc/espressif/esp32/components/hal/esp32/include",
+    "//device/soc/espressif/esp32/components/soc/include",
+    "//device/soc/espressif/esp32/components/heap/include",
+  ]
+}
