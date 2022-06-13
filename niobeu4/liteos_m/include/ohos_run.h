@@ -26,14 +26,14 @@ extern "C" {
  * @brief 用与指定系统运行之前的程序入口函数
  *
  */
-#define BEFORE_OHOS_RUN(func)  {void *BEFORE_OHOS_RUN_FUNC_ENTRY=func}
+#define BEFORE_OHOS_RUN(func) void *BEFORE_OHOS_RUN_FUNC_ENTRY = func
 
 /**
  * @brief 用与指定系统运行之后的程序入口函数
  *
  */
-#define OHOS_APP_RUN(func)  {void *OHOS_APP_FUNC_ENTRY=func}
-    
+#define OHOS_APP_RUN(func) void *OHOS_APP_FUNC_ENTRY = func
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
