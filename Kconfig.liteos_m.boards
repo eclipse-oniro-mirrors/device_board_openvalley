@@ -11,6 +11,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-if SOC_ESP32
+if SOC_ESP32_U4WDH
 orsource "niobeu4/Kconfig.liteos_m.board"
 endif
