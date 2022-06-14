@@ -1,0 +1,22 @@
+#include "device_info.hcs"
+root {
+    platform {
+        adc_config {
+            adc1_config {
+                match_attr = "adc1_config";
+                handle = 1;     //1:adc1 2:adc2
+                channel = 6;    //6:GPIO34,ADC1_CHANNEL:0-7, ADC2_CHANNEL:0-9
+            }
+        }
+        i2c_config {
+            i2c0 {
+                match_attr = "i2c0_config";           
+                mode = 0;    // 0:master 1:slave
+                port = 0;
+                scl_pin = 4;
+                sda_pin = 9;
+                speed = 400000;
+            }
+        }                
+    }
+}

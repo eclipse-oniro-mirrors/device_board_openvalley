@@ -1,0 +1,57 @@
+root {
+    module = "openvalley,niobeu4";
+    device_info {
+        match_attr = "hdf_manager";
+        template host {
+            hostName = "";
+            priority = 100;
+            template device {
+                template deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    preload = 0;
+                    permission = 0664;
+                    moduleName = "";
+                    serviceName = "";
+                    deviceMatchAttr = "";
+                }
+            }
+        }
+        platform :: host {
+            hostName = "platform_host";
+            priority = 50;
+            device_adc :: device {
+                adc_core :: deviceNode {
+                    policy = 0;
+                    priority = 50;
+                    permission = 0644;
+                    moduleName = "HDF_PLATFORM_ADC_MANAGER";
+                    serviceName = "HDF_PLATFORM_ADC_MANAGER";
+                }
+                adc1 :: deviceNode {
+                    policy = 0;
+                    priority = 60;
+                    moduleName = "ESP32U4_HDF_ADC";
+                    serviceName = "ESP32U4_SERVICE_ADC";
+                    deviceMatchAttr = "adc1_config";
+                }
+            }
+            device_i2c :: device {
+                i2c_core :: deviceNode {
+                    policy = 0;
+                    priority = 50;
+                    permission = 0644;
+                    moduleName = "HDF_PLATFORM_I2C_MANAGER";
+                    serviceName = "HDF_PLATFORM_I2C_MANAGER";
+                }
+                i2c0 :: deviceNode {
+                    policy = 0;
+                    priority = 100;
+                    moduleName = "ESP32U4_HDF_I2C";
+                    serviceName = "ESP32U4_SERVICE_I2C";
+                    deviceMatchAttr = "i2c0_config";
+                }
+            }
+        }
+    }
+}
