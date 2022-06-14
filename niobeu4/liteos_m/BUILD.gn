@@ -21,6 +21,7 @@ if (ohos_kernel_type == "liteos_m") {
       "drivers",
       "hals",
       "arch",
+      "hdf_config",
     ]
   }
 }
