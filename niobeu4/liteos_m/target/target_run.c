@@ -24,6 +24,7 @@ void *__attribute__((weak)) BEFORE_OHOS_RUN_FUNC_ENTRY = NULL;
 void ohos_app_main()
 {
     LOS_TaskDelay(DEALY_10_TICKS);
+    printf("\n\033[1;32m<--------------- OHOS Application Start Here --------------->\033[0m\n");
     if (OHOS_APP_FUNC_ENTRY) {
         ((void (*)(void)) OHOS_APP_FUNC_ENTRY)();
     }
