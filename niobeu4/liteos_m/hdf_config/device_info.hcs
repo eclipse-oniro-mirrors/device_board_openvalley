@@ -38,7 +38,7 @@ root {
             }
             device_i2c :: device {
                 i2c_core :: deviceNode {
-                    policy = 0;
+                    policy = 2;
                     priority = 50;
                     permission = 0644;
                     moduleName = "HDF_PLATFORM_I2C_MANAGER";
