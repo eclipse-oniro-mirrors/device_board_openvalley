@@ -272,7 +272,7 @@ static void wifi_event_scan_down_proc(void *event_data)
     uint16_t size = 0;
     DevWifiInfo.scan_ok = 1;
     esp_wifi_scan_get_ap_num(&size);
-    SendOnWifiScanStateChanged(&DevWifiInfo, WIFI_STATE_AVALIABLE, size);
+    SendOnWifiScanStateChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE, size);
 }
 
 static void wifi_event_sta_connected_proc(void *event_data)
@@ -285,7 +285,7 @@ static void wifi_event_sta_connected_proc(void *event_data)
     linkInfo.rssi = ap_info.rssi;
     linkInfo.connState = WIFI_CONNECTED;
     linkInfo.frequency = ChannelToFrequency(ap_info.primary);
-    SendOnWifiConnectionChanged(&DevWifiInfo, WIFI_STATE_AVALIABLE, &linkInfo);
+    SendOnWifiConnectionChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE, &linkInfo);
 }
 
 static void wifi_event_sta_disconnected_proc(void *event_data)
@@ -296,7 +296,7 @@ static void wifi_event_sta_disconnected_proc(void *event_data)
     MEMCPY_S(&linkInfo.bssid, sizeof(linkInfo.bssid), disconnected->bssid, sizeof(disconnected->bssid));
     linkInfo.disconnectedReason = disconnected->reason;
     linkInfo.connState = WIFI_DISCONNECTED;
-    SendOnWifiConnectionChanged(&DevWifiInfo, WIFI_STATE_NOT_AVALIABLE, &linkInfo);
+    SendOnWifiConnectionChanged(&DevWifiInfo, WIFI_STATE_NOT_AVAILABLE, &linkInfo);
 }
 
 static void wifi_event_ap_connected_proc(void *event_data)
@@ -319,7 +319,7 @@ static void wifi_event_ap_disconnected_proc(void *event_data)
 
 static void wifi_event_ap_start_proc(void *event_data)
 {
-    SendOnHotspotStateChanged(&DevWifiInfo, WIFI_STATE_AVALIABLE);
+    SendOnHotspotStateChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE);
 }
 
 static void event_handler(void *arg, esp_event_base_t event_base,
@@ -486,7 +486,7 @@ WifiErrorCode Scan(void)
     if (info->staStatus != WIFI_ACTIVE) {
         return ERROR_WIFI_NOT_STARTED;
     }
-    SendOnWifiScanStateChanged(info, WIFI_STATE_NOT_AVALIABLE, 0);
+    SendOnWifiScanStateChanged(info, WIFI_STATE_NOT_AVAILABLE, 0);
 
     esp_wifi_scan_stop();
     if (esp_wifi_scan_start(NULL, false) != ESP_OK) {
@@ -933,7 +933,7 @@ WifiErrorCode AdvanceScan(WifiScanParams *params)
     if (info->staStatus != WIFI_ACTIVE) {
         return ERROR_WIFI_NOT_STARTED;
     }
-    SendOnWifiScanStateChanged(info, WIFI_STATE_NOT_AVALIABLE, 0);
+    SendOnWifiScanStateChanged(info, WIFI_STATE_NOT_AVAILABLE, 0);
 
     wifi_scan_config_t config = {0};
     if (params->scanType == WIFI_FREQ_SCAN) {
