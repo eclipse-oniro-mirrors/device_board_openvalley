@@ -29,6 +29,7 @@ kernel_module(module_name) {
     "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
     "//drivers/framework/core/common/include/manager",
   ]
+  deps = ["//vendor/openvalley/niobeu4/applications:applications"]
 }
 
 config("public") {
