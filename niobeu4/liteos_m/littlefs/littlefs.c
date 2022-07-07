@@ -24,7 +24,7 @@
 #include "ohos_init.h"
 #include "ohos_types.h"
 
-static const char *LITTLEFS_MOUNT_POINT = "/Talkweb";
+static const char *LITTLEFS_MOUNT_POINT = "/Openvalley";
 static const char TAG[] = {"Littlefs"};
 #define LFS_LOG printf
 #define LSF_ERROR (-1)

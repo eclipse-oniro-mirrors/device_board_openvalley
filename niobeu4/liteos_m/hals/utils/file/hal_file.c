@@ -34,7 +34,7 @@ static int sHalFileGetPath(char *tmpPath, const char *path)
     for (; ptr_path[0] == '/'; ptr_path++) {
         ;
     }
-    (void)snprintf_s(tmpPath, LITTLEFS_MAX_LFN_LEN, LITTLEFS_MAX_LFN_LEN, "%s/%s", LITTLEFS_MOUNT_POINT, ptr_path);
+    (void)snprintf_s(tmpPath, LITTLEFS_MAX_LFN_LEN, LITTLEFS_MAX_LFN_LEN, "%s/%s", GetLittlefsMountPoint(), ptr_path);
     return 0;
 }
 
