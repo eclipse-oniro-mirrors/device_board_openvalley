@@ -45,7 +45,7 @@
 
 #define OHOS_BLE_ADV_FLAG_LIMIT_DISC (0x01 << 0)
 #define OHOS_BLE_ADV_FLAG_GEN_DISC (0x01 << 1)
-#define OHOS_BLE_ADV_FLAG_BREDR_NOT_SPT(0x01 << 2)
+#define OHOS_BLE_ADV_FLAG_BREDR_NOT_SPT (0x01 << 2)
 #define OHOS_BLE_ADV_FLAG_DMT_CONTROLLER_SPT (0x01 << 3)
 #define OHOS_BLE_ADV_FLAG_DMT_HOST_SPT (0x01 << 4)
 #define OHOS_BLE_ADV_FLAG_NON_LIMIT_DISC (0x00)
@@ -111,8 +111,8 @@ typedef enum {
 
 typedef enum {
     OHOS_GAP_SEARCH_INQ_RES_EVT = 0, /*!< Inquiry result for a peer device. */
-    OHOS_GAP_SEARCH_INQ_CMPL_EVT= 1, /*!< Inquiry complete. */
-    OHOS_GAP_SEARCH_DISC_RES_EVT= 2, /*!< Discovery result for a peer device. */
+    OHOS_GAP_SEARCH_INQ_CMPL_EVT = 1, /*!< Inquiry complete. */
+    OHOS_GAP_SEARCH_DISC_RES_EVT = 2, /*!< Discovery result for a peer device. */
     OHOS_GAP_SEARCH_DISC_BLE_RES_EVT = 3, /*!< Discovery result for BL */
     OHOS_GAP_SEARCH_DISC_CMPL_EVT = 4, /*!< Discovery complete. */
     OHOS_GAP_SEARCH_DI_DISC_CMPL_EVT = 5, /*!< Discovery complete. */
