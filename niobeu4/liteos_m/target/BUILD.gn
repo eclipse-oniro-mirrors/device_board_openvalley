@@ -67,6 +67,9 @@ config("public") {
     ESP_SDK_PATH+"hal/include",
     ESP_SDK_PATH+"spi_flash/include",
     ESP_SDK_PATH+"nvs_flash/include",
+    ESP_SDK_PATH+"bt/include/esp32/include",
+    ESP_SDK_PATH+"bt/host/bluedroid/api/include/api",
+    ESP_SDK_PATH+"log/include",  
   ]
   lib_dirs = [ 
     rebase_path(ESP_SDK_PATH+"libs"),
@@ -145,6 +148,7 @@ config("public") {
     "m",
     "gcc",
     "stdc++",
+    "btdm_app",
     "core",
     "rtc",
     "net80211",
