@@ -95,16 +95,15 @@ BtError BleStopScan(void)
     return esp_ble_gap_stop_scanning();
 }
 
-BtError BleGattcConnect(int clientId, void *func, 
-                        const BdAddr *bdAddr, 
-                        bool isAutoConnect, 
+BtError BleGattcConnect(int clientId, void *func,
+                        const BdAddr *bdAddr, bool isAutoConnect,
                         BtTransportType transport)
 {
     if (bdAddr == NULL) {
         BT_DEBUG("BleGattcConnect param is NULL! \n");
         return BT_PARAMINPUT_ERROR;
     }
-    return esp_ble_gattc_open(clientId, bdAddr, transport, isAutoConnect);//根据mac地址连接蓝牙
+    return esp_ble_gattc_open(clientId, bdAddr, transport, isAutoConnect);
 }
 
 BtError BleGattcDisconnect(int clientId, int conn_id)
@@ -166,7 +165,7 @@ BtError BleGattcSearchServices(int clientId, int conn_id, BtUuid *filter_uuid)
     }
     esp_bt_uuid_t remote_filter_service_uuid = {
         .len = filter_uuid->uuidLen,
-        .uuid = {.uuid16 = (uint16_t)filter_uuid->uuid,},
+        .uuid = {.uuid16 = (uint16_t)filter_uuid->uuid, },
     };
     esp_ble_gattc_search_service(clientId, conn_id, &remote_filter_service_uuid);
 }
@@ -197,8 +196,7 @@ BtError BleGattcSendMtuReq(GattInterfaceType gattc_if, uint16_t conn_id)
     return esp_ble_gattc_send_mtu_req(gattc_if, conn_id);
 }
 
-BtError BleGattcGetAttrCount(GattInterfaceType gattc_if,
-                             uint16_t conn_id, esp_gatt_db_attr_type_t type,
+BtError BleGattcGetAttrCount(GattInterfaceType gattc_if, uint16_t conn_id, esp_gatt_db_attr_type_t type,
                              uint16_t start_handle, uint16_t end_handle,
                              uint16_t char_handle,
                              uint16_t *count)

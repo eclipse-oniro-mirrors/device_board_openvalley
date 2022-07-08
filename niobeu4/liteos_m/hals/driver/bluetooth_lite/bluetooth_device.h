@@ -119,15 +119,13 @@ BtError BleGattcConfigureMtuSize(int mtuSize);
 BtError BleGattcSearchServices(int clientId, int conn_id, BtUuid *filter_uuid);
 
 BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t handle,
-                                    uint16_t value_len, uint8_t *value,
-                                    GattBleWriteType write_type,
+                                    uint16_t value_len, uint8_t *value, GattBleWriteType write_type,
                                     GattBleAuthReq auth_req);
 
 BtError BleGattcSendMtuReq(GattInterfaceType gattc_if, uint16_t conn_id);
 
 BtError BleGattcGetAttrCount(GattInterfaceType gattc_if, uint16_t conn_id, esp_gatt_db_attr_type_t type,
-                             uint16_t start_handle, uint16_t end_handle,
-                             uint16_t char_handle,
+                             uint16_t start_handle, uint16_t end_handle, uint16_t char_handle,
                              uint16_t *count);
 
 GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t start_handle,
@@ -143,7 +141,6 @@ GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if, uint16_t con
                                         uint16_t *count);
 
 BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t handle,
-                               uint16_t value_len, uint8_t *value,
-                               BtGattWriteType write_type,
+                               uint16_t value_len, uint8_t *value, BtGattWriteType write_type,
                                GattAttributePermission auth_req);
 #endif
