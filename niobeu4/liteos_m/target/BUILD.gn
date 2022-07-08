@@ -29,11 +29,11 @@ kernel_module(module_name) {
     "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
     "//drivers/framework/core/common/include/manager",
   ]
-  deps = ["//vendor/openvalley/niobeu4/applications:applications"]
+  deps = ["//vendor/openvalley/niobeu4/demo:demo"]
 }
 
 config("public") {
-  ESP_SDK_PATH="//device/soc/espressif/esp32/components/"
+  ESP_SDK_PATH="//device/soc/esp/esp32/components/"
   include_dirs = [
     ".",
     "../include",

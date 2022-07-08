@@ -28,6 +28,6 @@ lite_library("hal_iothardware") {
   ]
   include_dirs = [
     "//base/iot_hardware/peripheral/interfaces/kits",
-    "//device/soc/espressif/esp32/components/esp_ringbuf/include",
+    "//device/soc/esp/esp32/components/esp_ringbuf/include",
   ]
 }

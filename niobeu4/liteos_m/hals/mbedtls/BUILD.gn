@@ -17,8 +17,8 @@ import("//third_party/mbedtls/mbedtls.gni")
 
 config("mbedtls_config") {
   include_dirs = [
-    "//device/soc/espressif/esp32/components/mbedtls/mbedtls/include",
-    "//device/soc/espressif/esp32/components/mbedtls/port/include",
+    "//device/soc/esp/esp32/components/mbedtls/mbedtls/include",
+    "//device/soc/esp/esp32/components/mbedtls/port/include",
   ]
   defines += [
     "MBEDTLS_CONFIG_FILE=<mbedtls/esp_config.h>",
