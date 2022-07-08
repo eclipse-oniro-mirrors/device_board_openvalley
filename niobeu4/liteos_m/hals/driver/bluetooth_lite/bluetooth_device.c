@@ -49,7 +49,7 @@ BtError EnableBle(void)
 
 BtError DisableBle(void)
 {
-    if(esp_bluedroid_get_status() == ESP_BLUEDROID_STATUS_ENABLED) {
+    if (esp_bluedroid_get_status() == ESP_BLUEDROID_STATUS_ENABLED) {
         esp_bluedroid_disable();
         esp_bt_controller_disable();
     }
@@ -95,7 +95,10 @@ BtError BleStopScan(void)
     return esp_ble_gap_stop_scanning();
 }
 
-BtError BleGattcConnect(int clientId, void *func, const BdAddr *bdAddr, bool isAutoConnect, BtTransportType transport)
+BtError BleGattcConnect(int clientId, void *func, 
+                        const BdAddr *bdAddr, 
+                        bool isAutoConnect, 
+                        BtTransportType transport)
 {
     if (bdAddr == NULL) {
         BT_DEBUG("BleGattcConnect param is NULL! \n");
@@ -131,22 +134,20 @@ BtError BleGattcConfigureMtuSize(int mtuSize)
 BtError BleGattcRegister(BtGattClientCallbacks func)
 {
     esp_err_t ret;
-    //register the  callback function to the gap module
     ret = esp_ble_gap_register_callback(func.gap_callback);
-    if (ret){
+    if (ret) {
         ESP_LOGE(GATTC_TAG, "%s gap register failed, error code = %x\n", __func__, ret);
         return ret;
     }
 
-    //register the callback function to the gattc module
     ret = esp_ble_gattc_register_callback(func.gattc_callback);
-    if(ret){
+    if (ret) {
         ESP_LOGE(GATTC_TAG, "%s gattc register failed, error code = %x\n", __func__, ret);
         return ret;
     }
 
     ret = esp_ble_gattc_app_register(func.PROFILE_APP_ID);
-    if (ret){
+    if (ret) {
         ESP_LOGE(GATTC_TAG, "%s gattc app register failed, error code = %x\n", __func__, ret);
     }
     return ret;
@@ -170,10 +171,9 @@ BtError BleGattcSearchServices(int clientId, int conn_id, BtUuid *filter_uuid)
     esp_ble_gattc_search_service(clientId, conn_id, &remote_filter_service_uuid);
 }
 
-BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if,
-                                    uint16_t conn_id, uint16_t handle,
-                                    uint16_t value_len, uint8_t *value,
-                                    GattBleWriteType write_type,
+BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if, uint16_t conn_id,
+                                    uint16_t handle, uint16_t value_len,
+                                    uint8_t *value, GattBleWriteType write_type,
                                     GattBleAuthReq auth_req)
 {
     if ((value == NULL) || (value_len <= 0)) {
@@ -210,8 +210,7 @@ BtError BleGattcGetAttrCount(GattInterfaceType gattc_if,
     return esp_ble_gattc_get_attr_count(gattc_if, conn_id, type, start_handle, end_handle, char_handle, count);
 }
 
-GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if,
-                                 uint16_t conn_id, uint16_t start_handle,
+GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t start_handle,
                                  uint16_t end_handle, BtUuids char_uuid,
                                  BleGattcCharElem *result,
                                  uint16_t *count)
@@ -242,8 +241,7 @@ GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if,
     return esp_ble_gattc_get_descr_by_char_handle(gattc_if, conn_id, char_handle, descr_uuid, result, count);
 }
 
-BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if,
-                               uint16_t conn_id, uint16_t handle,
+BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t handle,
                                uint16_t value_len, uint8_t *value,
                                BtGattWriteType write_type,
                                GattAttributePermission auth_req)

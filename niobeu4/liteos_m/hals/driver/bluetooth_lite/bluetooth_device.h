@@ -87,7 +87,7 @@ typedef enum {
     OHOS_GATT_DB_DESCRIPTOR,
     OHOS_GATT_DB_INCLUDED_SERVICE,
     OHOS_GATT_DB_ALL,
-} GattDbAttrType;    
+} GattDbAttrType;
 
 typedef void (* GattcBleCallback)(GattcBleCallbackEvent event, GattInterfaceType gattc_if, BleGattcParam *param);
 
@@ -118,24 +118,19 @@ BtError BleGattcConfigureMtuSize(int mtuSize);
 
 BtError BleGattcSearchServices(int clientId, int conn_id, BtUuid *filter_uuid);
 
-BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if,
-                                    uint16_t conn_id, uint16_t handle,
+BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t handle,
                                     uint16_t value_len, uint8_t *value,
                                     GattBleWriteType write_type,
                                     GattBleAuthReq auth_req);
 
 BtError BleGattcSendMtuReq(GattInterfaceType gattc_if, uint16_t conn_id);
 
-BtError BleGattcGetAttrCount(GattInterfaceType gattc_if,
-                             uint16_t conn_id,
-                             esp_gatt_db_attr_type_t type,
-                             uint16_t start_handle,
-                             uint16_t end_handle,
+BtError BleGattcGetAttrCount(GattInterfaceType gattc_if, uint16_t conn_id, esp_gatt_db_attr_type_t type,
+                             uint16_t start_handle, uint16_t end_handle,
                              uint16_t char_handle,
                              uint16_t *count);
 
-GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if,
-                                 uint16_t conn_id, uint16_t start_handle,
+GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t start_handle,
                                  uint16_t end_handle, BtUuids char_uuid,
                                  BleGattcCharElem *result, uint16_t *count);
 
@@ -143,13 +138,11 @@ BtError BleGattcRegisterForNotify(GattInterfaceType gattc_if,
                                   BdAddrs server_bda,
                                   uint16_t handle);
 
-GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if,
-                                        uint16_t conn_id, uint16_t char_handle,
+GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t char_handle,
                                         BtUuids descr_uuid, BleGattcDescrElem *result,
                                         uint16_t *count);
 
-BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if,
-                               uint16_t conn_id, uint16_t handle,
+BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t handle,
                                uint16_t value_len, uint8_t *value,
                                BtGattWriteType write_type,
                                GattAttributePermission auth_req);
