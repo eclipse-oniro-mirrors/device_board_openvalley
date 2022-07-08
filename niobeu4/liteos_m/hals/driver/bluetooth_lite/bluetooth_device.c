@@ -19,7 +19,7 @@
 
 BtError EnableBle(void)
 {
-    esp_err_t ret; 
+    esp_err_t ret;
     esp_bt_controller_config_t bt_cfg = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
     ret = esp_bt_controller_init(&bt_cfg);
     if (ret) {
@@ -84,7 +84,7 @@ BtError BleStartScan(void)
     if (esp_bluedroid_get_status() != ESP_BLUEDROID_STATUS_ENABLED) {
         return ESP_ERR_INVALID_STATE;
     }
-    return esp_ble_gap_start_scanning(30);
+    return esp_ble_gap_start_scanning(ScanTime);
 }
 
 BtError BleStopScan(void)
@@ -171,11 +171,10 @@ BtError BleGattcSearchServices(int clientId, int conn_id, BtUuid *filter_uuid)
 }
 
 BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if,
-                                   uint16_t conn_id, uint16_t handle,
-                                   uint16_t value_len,
-                                   uint8_t *value,
-                                   GattBleWriteType write_type,
-                                   GattBleAuthReq auth_req)
+                                    uint16_t conn_id, uint16_t handle,
+                                    uint16_t value_len, uint8_t *value,
+                                    GattBleWriteType write_type,
+                                    GattBleAuthReq auth_req)
 {
     if ((value == NULL) || (value_len <= 0)) {
         BT_DEBUG("BleGattcWriteCharacteristic param is NULL! \n");
@@ -199,10 +198,8 @@ BtError BleGattcSendMtuReq(GattInterfaceType gattc_if, uint16_t conn_id)
 }
 
 BtError BleGattcGetAttrCount(GattInterfaceType gattc_if,
-                             uint16_t conn_id,
-                             esp_gatt_db_attr_type_t type,
-                             uint16_t start_handle,
-                             uint16_t end_handle,
+                             uint16_t conn_id, esp_gatt_db_attr_type_t type,
+                             uint16_t start_handle, uint16_t end_handle,
                              uint16_t char_handle,
                              uint16_t *count)
 {
@@ -214,10 +211,8 @@ BtError BleGattcGetAttrCount(GattInterfaceType gattc_if,
 }
 
 GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if,
-                                 uint16_t conn_id,
-                                 uint16_t start_handle,
-                                 uint16_t end_handle,
-                                 BtUuids char_uuid,
+                                 uint16_t conn_id, uint16_t start_handle,
+                                 uint16_t end_handle, BtUuids char_uuid,
                                  BleGattcCharElem *result,
                                  uint16_t *count)
 {
@@ -236,10 +231,8 @@ BtError BleGattcRegisterForNotify(GattInterfaceType gattc_if,
 }
 
 GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if,
-                                        uint16_t conn_id,
-                                        uint16_t char_handle,
-                                        BtUuids descr_uuid,
-                                        BleGattcDescrElem *result,
+                                        uint16_t conn_id, uint16_t char_handle,
+                                        BtUuids descr_uuid, BleGattcDescrElem *result,
                                         uint16_t *count)
 {
     if ((result == NULL) || (count == NULL)) {
@@ -250,10 +243,8 @@ GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if,
 }
 
 BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if,
-                               uint16_t conn_id,
-                               uint16_t handle,
-                               uint16_t value_len,
-                               uint8_t *value,
+                               uint16_t conn_id, uint16_t handle,
+                               uint16_t value_len, uint8_t *value,
                                BtGattWriteType write_type,
                                GattAttributePermission auth_req)
 {

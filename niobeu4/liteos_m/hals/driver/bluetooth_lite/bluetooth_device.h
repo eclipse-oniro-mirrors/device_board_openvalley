@@ -12,8 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef __BLEMASTERKITS_H__
-#define __BLEMASTERKITS_H__
+#ifndef __BLUETOOTH_DEVICE_H__
+#define __BLUETOOTH_DEVICE_H__
 #include "securec.h"
 #include "blegap.h"
 #include "esp_gattc_api.h"
@@ -26,6 +26,7 @@
 #define BleGattcDescrElem esp_gattc_descr_elem_t
 #define BtLogBufferHex      ESP_LOG_BUFFER_HEX
 #define BtLogBufferChar esp_log_buffer_char
+#define ScanTime 30
 
 typedef enum {
     OHOS_GATTC_REG_EVT                 = 0,
@@ -119,8 +120,7 @@ BtError BleGattcSearchServices(int clientId, int conn_id, BtUuid *filter_uuid);
 
 BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if,
                                     uint16_t conn_id, uint16_t handle,
-                                    uint16_t value_len,
-                                    uint8_t *value,
+                                    uint16_t value_len, uint8_t *value,
                                     GattBleWriteType write_type,
                                     GattBleAuthReq auth_req);
 
@@ -135,29 +135,22 @@ BtError BleGattcGetAttrCount(GattInterfaceType gattc_if,
                              uint16_t *count);
 
 GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if,
-                                 uint16_t conn_id,
-                                 uint16_t start_handle,
-                                 uint16_t end_handle,
-                                 BtUuids char_uuid,
-                                 BleGattcCharElem *result,
-                                 uint16_t *count);
+                                 uint16_t conn_id, uint16_t start_handle,
+                                 uint16_t end_handle, BtUuids char_uuid,
+                                 BleGattcCharElem *result, uint16_t *count);
 
 BtError BleGattcRegisterForNotify(GattInterfaceType gattc_if,
                                   BdAddrs server_bda,
                                   uint16_t handle);
 
 GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if,
-                                        uint16_t conn_id,
-                                        uint16_t char_handle,
-                                        BtUuids descr_uuid,
-                                        BleGattcDescrElem *result,
+                                        uint16_t conn_id, uint16_t char_handle,
+                                        BtUuids descr_uuid, BleGattcDescrElem *result,
                                         uint16_t *count);
 
 BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if,
-                               uint16_t conn_id,
-                               uint16_t handle,
-                               uint16_t value_len,
-                               uint8_t *value,
+                               uint16_t conn_id, uint16_t handle,
+                               uint16_t value_len, uint8_t *value,
                                BtGattWriteType write_type,
                                GattAttributePermission auth_req);
 #endif
