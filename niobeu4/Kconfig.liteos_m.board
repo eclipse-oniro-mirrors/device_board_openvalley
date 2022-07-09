@@ -17,6 +17,6 @@ menuconfig BOARD_NIOBEU4
 
 if BOARD_NIOBEU4
 
-orsource "../../../../vendor/openvalley/niobeu4/applications/Kconfig.liteos_m.applications"
+orsource "../../../../vendor/openvalley/niobeu4/demo/Kconfig.liteos_m.applications"
 
 endif #BOARD_NIOBEU4
