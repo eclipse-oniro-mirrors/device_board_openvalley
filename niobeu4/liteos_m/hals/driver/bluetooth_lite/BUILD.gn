@@ -19,7 +19,7 @@ kernel_module(module_name) {
     "bluetooth_device.c",
   ]
 
-  ESP_SDK_PATH="//device/soc/espressif/esp32/components/"
+  ESP_SDK_PATH="//device/soc/esp/esp32/components/"
   include_dirs = [
     ESP_SDK_PATH+"bt/include/esp32/include",
     "//foundation/communication/bluetooth/interfaces/inner_api/include/c_header",
