@@ -71,11 +71,15 @@ BtError SetLocalName(unsigned char *localName, unsigned char length)
 
 BtError GetLocalAddr(unsigned char *mac, unsigned int len)
 {
+    int ret;
     if ((mac == NULL) || (len <= 0)) {
         BT_DEBUG("GetLocalAddr param is NULL! \n");
         return BT_PARAMINPUT_ERROR;
     }
-    memcpy_S(mac, esp_bt_dev_get_address(), len);
+    ret = memcpy_s(mac, len, esp_bt_dev_get_address(), len);
+    if (!ret) {
+        return ret;
+    }
     return BT_SUCCESS;
 }
 
@@ -111,9 +115,11 @@ BtError BleGattcDisconnect(int clientId, int conn_id)
     return esp_ble_gattc_close(clientId, conn_id);
 }
 
-BtError BleGapDisconnect(BdAddrs remote_device)
+BtError BleGapDisconnect(BdAddr remote_device)
 {
-    return esp_ble_gap_disconnect(remote_device);
+    uint8_t BdAddrs[OHOS_BD_ADDR_LEN];
+    memcpy_s(BdAddrs, sizeof(BdAddrs), remote_device.addr, sizeof(remote_device.addr));
+    return esp_ble_gap_disconnect(BdAddrs);
 }
 
 uint8_t *BleResolveAdvData(uint8_t *adv_data, uint8_t type, uint8_t *length)
@@ -170,16 +176,16 @@ BtError BleGattcSearchServices(int clientId, int conn_id, BtUuid *filter_uuid)
     esp_ble_gattc_search_service(clientId, conn_id, &remote_filter_service_uuid);
 }
 
-BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if, uint16_t conn_id,
-                                    uint16_t handle, uint16_t value_len,
-                                    uint8_t *value, GattBleWriteType write_type,
+BtError BleGattcWriteCharacteristic(GattcWriteChar write_char, uint8_t *value,
                                     GattBleAuthReq auth_req)
 {
-    if ((value == NULL) || (value_len <= 0)) {
+    if ((value == NULL) || (write_char.value_len <= 0)) {
         BT_DEBUG("BleGattcWriteCharacteristic param is NULL! \n");
         return BT_PARAMINPUT_ERROR;
     }
-    return esp_ble_gattc_write_char(gattc_if, conn_id, handle, value_len, value, write_type, auth_req);
+    return esp_ble_gattc_write_char(write_char.gattc_if, write_char.conn_id,
+                                    write_char.handle, write_char.value_len,
+                                    value, write_char.write_type, auth_req);
 }
 
 BtError BleGatSetScanParams(BleScanParams *scan_params)
@@ -196,8 +202,7 @@ BtError BleGattcSendMtuReq(GattInterfaceType gattc_if, uint16_t conn_id)
     return esp_ble_gattc_send_mtu_req(gattc_if, conn_id);
 }
 
-BtError BleGattcGetAttrCount(GattInterfaceType gattc_if, uint16_t conn_id, esp_gatt_db_attr_type_t type,
-                             uint16_t start_handle, uint16_t end_handle,
+BtError BleGattcGetAttrCount(GattcGetAttr get_attr,
                              uint16_t char_handle,
                              uint16_t *count)
 {
@@ -205,48 +210,53 @@ BtError BleGattcGetAttrCount(GattInterfaceType gattc_if, uint16_t conn_id, esp_g
         BT_DEBUG("BleGattcGetAttrCount param is NULL! \n");
         return BT_PARAMINPUT_ERROR;
     }
-    return esp_ble_gattc_get_attr_count(gattc_if, conn_id, type, start_handle, end_handle, char_handle, count);
+    return esp_ble_gattc_get_attr_count(get_attr.gattc_if, get_attr.conn_id,
+                                        get_attr.type, get_attr.start_handle,
+                                        get_attr.end_handle, char_handle, count);
 }
 
-GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t start_handle,
-                                 uint16_t end_handle, BtUuids char_uuid,
-                                 BleGattcCharElem *result,
-                                 uint16_t *count)
+GattStatus BleGattcGetCharByUuid(GattcGetChar get_char, BtUuids char_uuid,
+                                 BleGattcCharElem *result, uint16_t *count)
 {
     if ((result == NULL) || (count == NULL)) {
         BT_DEBUG("BleGattcGetCharByUuid param is NULL! \n");
         return BT_PARAMINPUT_ERROR;
     }
-    return esp_ble_gattc_get_char_by_uuid(gattc_if, conn_id, start_handle, end_handle, char_uuid, result, count);
+    return esp_ble_gattc_get_char_by_uuid(get_char.gattc_if, get_char.conn_id,
+                                          get_char.start_handle, get_char.end_handle,
+                                          char_uuid, result, count);
 }
 
 BtError BleGattcRegisterForNotify(GattInterfaceType gattc_if,
-                                  BdAddrs server_bda,
+                                  BdAddr server_bda,
                                   uint16_t handle)
 {
-    return esp_ble_gattc_register_for_notify(gattc_if, server_bda, handle);
+    uint8_t BdAddrs[OHOS_BD_ADDR_LEN];
+    memcpy_s(BdAddrs, sizeof(BdAddrs), server_bda.addr, sizeof(server_bda.addr));
+    return esp_ble_gattc_register_for_notify(gattc_if, BdAddrs, handle);
 }
 
-GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if,
-                                        uint16_t conn_id, uint16_t char_handle,
-                                        BtUuids descr_uuid, BleGattcDescrElem *result,
+GattStatus BleGattcGetDescrByCharHandle(GattcGetDescr get_descr, BleGattcDescrElem *result,
                                         uint16_t *count)
 {
     if ((result == NULL) || (count == NULL)) {
         BT_DEBUG("BleGattcGetCharByUuid param is NULL! \n");
         return BT_PARAMINPUT_ERROR;
     }
-    return esp_ble_gattc_get_descr_by_char_handle(gattc_if, conn_id, char_handle, descr_uuid, result, count);
+    return esp_ble_gattc_get_descr_by_char_handle(get_descr.gattc_if, get_descr.conn_id,
+                                                  get_descr.char_handle, get_descr.descr_uuid,
+                                                  result, count);
 }
 
-BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t handle,
-                               uint16_t value_len, uint8_t *value,
-                               BtGattWriteType write_type,
+BtError BleGattcWriteCharDescr(GattcWriteChar write_char,
+                               uint8_t *value,
                                GattAttributePermission auth_req)
 {
     if (value == NULL) {
         BT_DEBUG("BleGattcWriteCharDescr param is NULL! \n");
         return BT_PARAMINPUT_ERROR;
     }
-    return esp_ble_gattc_write_char_descr(gattc_if, conn_id, handle, value_len, value, write_type, auth_req);
+    return esp_ble_gattc_write_char_descr(write_char.gattc_if, write_char.conn_id,
+                                          write_char.handle, write_char.value_len,
+                                          value, write_char.write_type, auth_req);
 }

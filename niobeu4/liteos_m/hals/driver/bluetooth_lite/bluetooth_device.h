@@ -105,6 +105,36 @@ typedef enum {
     OHOS_GATT_AUTH_REQ_SIGNED_MITM           = 4,
 } GattBleAuthReq;
 
+typedef struct {
+    GattInterfaceType gattc_if;
+    uint16_t conn_id;
+    uint16_t char_handle;
+    BtUuids descr_uuid;
+} GattcGetDescr;
+
+typedef struct {
+    GattInterfaceType gattc_if;
+    uint16_t conn_id;
+    uint16_t handle;
+    uint16_t value_len;
+    GattBleWriteType write_type;
+} GattcWriteChar;
+
+typedef struct {
+    GattInterfaceType gattc_if;
+    uint16_t conn_id;
+    esp_gatt_db_attr_type_t type;
+    uint16_t start_handle;
+    uint16_t end_handle;
+} GattcGetAttr;
+
+typedef struct {
+    GattInterfaceType gattc_if;
+    uint16_t conn_id;
+    uint16_t start_handle;
+    uint16_t end_handle;
+} GattcGetChar;
+
 BtError BleGattcConnect(int clientId, void *func, const BdAddr *bdAddr, bool isAutoConnect,
                         BtTransportType transport);
 
@@ -118,29 +148,26 @@ BtError BleGattcConfigureMtuSize(int mtuSize);
 
 BtError BleGattcSearchServices(int clientId, int conn_id, BtUuid *filter_uuid);
 
-BtError BleGattcWriteCharacteristic(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t handle,
-                                    uint16_t value_len, uint8_t *value, GattBleWriteType write_type,
+BtError BleGattcWriteCharacteristic(GattcWriteChar write_char, uint8_t *value,
                                     GattBleAuthReq auth_req);
 
 BtError BleGattcSendMtuReq(GattInterfaceType gattc_if, uint16_t conn_id);
 
-BtError BleGattcGetAttrCount(GattInterfaceType gattc_if, uint16_t conn_id, esp_gatt_db_attr_type_t type,
-                             uint16_t start_handle, uint16_t end_handle, uint16_t char_handle,
+BtError BleGattcGetAttrCount(GattcGetAttr get_attr,
+                             uint16_t char_handle,
                              uint16_t *count);
 
-GattStatus BleGattcGetCharByUuid(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t start_handle,
-                                 uint16_t end_handle, BtUuids char_uuid,
+GattStatus BleGattcGetCharByUuid(GattcGetChar get_char, BtUuids char_uuid,
                                  BleGattcCharElem *result, uint16_t *count);
 
 BtError BleGattcRegisterForNotify(GattInterfaceType gattc_if,
-                                  BdAddrs server_bda,
+                                  BdAddr server_bda,
                                   uint16_t handle);
 
-GattStatus BleGattcGetDescrByCharHandle(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t char_handle,
-                                        BtUuids descr_uuid, BleGattcDescrElem *result,
+GattStatus BleGattcGetDescrByCharHandle(GattcGetDescr get_descr, BleGattcDescrElem *result,
                                         uint16_t *count);
 
-BtError BleGattcWriteCharDescr(GattInterfaceType gattc_if, uint16_t conn_id, uint16_t handle,
-                               uint16_t value_len, uint8_t *value, BtGattWriteType write_type,
+BtError BleGattcWriteCharDescr(GattcWriteChar write_char,
+                               uint8_t *value,
                                GattAttributePermission auth_req);
 #endif

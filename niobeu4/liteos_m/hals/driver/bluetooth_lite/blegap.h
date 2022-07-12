@@ -30,7 +30,6 @@
 #define BleGapParam esp_ble_gap_cb_param_t
 #define BleGattcParam esp_ble_gattc_cb_param_t
 #define BleScanParams esp_ble_scan_params_t
-#define DataLength 4
 #define BT_DEBUG printf
 
 #define OHOS_GATT_PREP_WRITE_CANCEL 0x00
@@ -59,7 +58,6 @@
 #define    OHOS_GATT_CHAR_PROP_BIT_INDICATE     (1 << 5)
 #define    OHOS_GATT_CHAR_PROP_BIT_AUTH   (1 << 6)
 #define    OHOS_GATT_CHAR_PROP_BIT_EXT_PROP     (1 << 7)
-uint8_t BdAddrs[OHOS_BD_ADDR_LEN];
 
 typedef enum {
     BT_ERROR = -1,
@@ -186,7 +184,7 @@ BtError BleGapUpdateConnParams(BleConnUpdateParams *params);
 
 BtError BleGatSetScanParams(BleScanParams *scan_params);
 
-BtError BleGapDisconnect(BdAddrs remote_device);
+BtError BleGapDisconnect(BdAddr remote_device);
 
 uint8_t *BleResolveAdvData(uint8_t *adv_data, uint8_t type, uint8_t *length);
 #endif
