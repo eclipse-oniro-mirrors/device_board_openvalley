@@ -90,7 +90,7 @@ static void MEMCPY_S(void *dst, int dstSize, void *src, int srcSize)
         return;
     }
     int ret;
-    ret = memcpy_s(dst, src, (dstSize > srcSize) ? srcSize : dstSize);
+    ret = memcpy_s(dst, dstSize, src, (dstSize > srcSize) ? srcSize : dstSize);
     if (ret != 0) {
         LOGE("memcpy_s fail!!\n");
     }
