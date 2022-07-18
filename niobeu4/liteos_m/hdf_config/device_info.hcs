@@ -20,10 +20,19 @@ root {
         platform :: host {
             hostName = "platform_host";
             priority = 50;
+            device_gpio :: device {
+                gpio_default :: deviceNode {
+                    policy = 0;
+                    priority = 60;
+                    moduleName = "ESP32U4_HDF_GPIO";
+                    serviceName = "ESP32U4_SERVICE_GPIO";
+                    deviceMatchAttr = "default_config";
+                }
+            }
             device_adc :: device {
                 adc_core :: deviceNode {
                     policy = 0;
-                    priority = 50;
+                    priority = 40;
                     permission = 0644;
                     moduleName = "HDF_PLATFORM_ADC_MANAGER";
                     serviceName = "HDF_PLATFORM_ADC_MANAGER";
