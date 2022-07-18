@@ -17,6 +17,9 @@ if (ohos_kernel_type == "liteos_m") {
   module_name = get_path_info(rebase_path("."), "name")
   config("public") {
     include_dirs = [ "$target_gen_dir" ]
+    include_dirs += [
+      "//device/soc/esp/esp32/components/hal/include/hal",
+    ]
   }
   hdf_driver(module_name) {
     hcs_sources = [ "hdf.hcs" ]
