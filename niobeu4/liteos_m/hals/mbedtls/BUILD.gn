@@ -17,11 +17,13 @@ import("//third_party/mbedtls/mbedtls.gni")
 
 config("mbedtls_config") {
   include_dirs = [
-    "//device/soc/esp/esp32/components/mbedtls/mbedtls/include",
+    "include",
+    "//third_party/mbedtls/include",
     "//device/soc/esp/esp32/components/mbedtls/port/include",
+    "//device/soc/esp/esp32/components",
   ]
   defines += [
-    "MBEDTLS_CONFIG_FILE=<mbedtls/esp_config.h>",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
   ]
 }
 
