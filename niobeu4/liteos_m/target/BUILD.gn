@@ -31,7 +31,6 @@ kernel_module(module_name) {
   ]
   deps = [
     "//vendor/openvalley/niobeu4/demo:demo",
-    "//third_party/mbedtls:mbedtls_static",
   ]
 }
 
