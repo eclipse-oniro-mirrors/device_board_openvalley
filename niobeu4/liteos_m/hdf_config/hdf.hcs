@@ -2,16 +2,20 @@
 root {
     platform {
         gpio_config {
-            default_config {
+            template default_config {
                 match_attr = "default_config";
-                gpio_num = 3;   //GPIO个数
-                /*      如下参数对应 device/soc/esp/esp32/components/hal/include/hal/gpio_types.h 中的枚举    */
-                /*         gpio_num_t,    gpio_int_type_t,    gpio_pull_mode_t,    gpio_drive_cap_t         */
-                /*          GPIO号           中断类型             上下拉状态            驱动强度               */
-                pin_index = ["GPIO_NUM_21", "GPIO_NUM_25", "GPIO_NUM_39"];
-                interrupt_type = ["GPIO_INTR_DISABLE", "GPIO_INTR_DISABLE", "GPIO_INTR_DISABLE"];
-                pull_mode = ["GPIO_PULLUP_ONLY", "GPIO_FLOATING", "GPIO_FLOATING"];
-                drive_capability = ["GPIO_DRIVE_CAP_DEFAULT", "GPIO_DRIVE_CAP_DEFAULT", "GPIO_DRIVE_CAP_DEFAULT"];
+                /*         gpio_num_t,    gpio_pull_mode_t,    gpio_drive_cap_t         */
+                /*          GPIO号           上下拉状态            驱动强度               */
+                gpio_attr = ["GPIO_NUM_21", "GPIO_PULLUP_ONLY", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            gpio_0 :: default_config {
+                gpio_attr = ["GPIO_NUM_21", "GPIO_PULLUP_ONLY", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            gpio_1 :: default_config {
+                gpio_attr = ["GPIO_NUM_25", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            gpio_2 :: default_config {
+                gpio_attr = ["GPIO_NUM_39", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
         }
         adc_config {
