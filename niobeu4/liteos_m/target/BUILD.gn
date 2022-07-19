@@ -29,7 +29,10 @@ kernel_module(module_name) {
     "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
     "//drivers/framework/core/common/include/manager",
   ]
-  deps = ["//vendor/openvalley/niobeu4/demo:demo"]
+  deps = [
+    "//vendor/openvalley/niobeu4/demo:demo",
+    "//third_party/mbedtls:mbedtls_static",
+  ]
 }
 
 config("public") {
@@ -134,6 +137,7 @@ config("public") {
     "-Wl,--wrap=longjmp",
     "-Wl,--undefined=uxTopUsedPriority",
     "-Wl,--wrap=mbedtls_mpi_exp_mod",
+    "-Wl,--wrap=mbedtls_mpi_mul_mpi",
     "-unewlib_include_heap_impl",
     "-unewlib_include_syscalls_impl",
     "-upthread_include_pthread_impl",
