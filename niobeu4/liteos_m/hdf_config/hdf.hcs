@@ -18,6 +18,23 @@ root {
                 gpio_attr = ["GPIO_NUM_39", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
         }
+        uart_config {
+            template default_config {
+                match_attr = "config_uart0";// 匹配字符串，与device_info.hcs中对应
+                uart_port = 0;              // 串口端口: UART0
+                baudrate = 115200;          // 波特率
+                /* Tx引脚GPIO号、Rx引脚GPIO号、rts引脚GPIO号、cts引脚GPIO号*/
+                uart_gpio_pin = [1, 3, 255, 255];     // 串口引脚GPIO号, 无流控则引脚号置为255
+                /* uart_word_length_t   uart_parity_t   uart_stop_bits_t  uart_hw_flowcontrol_t */
+                /*      数据位 、           校验位、          停止位、              流控 */
+                uart_attr = ["UART_DATA_8_BITS", "UART_PARITY_DISABLE", "UART_STOP_BITS_1", "UART_HW_FLOWCTRL_DISABLE"];
+            }
+            uart_0 :: default_config {
+                match_attr = "config_uart0";
+                uart_port = 0;
+                uart_gpio_pin = [1, 3, 255, 255];     // 串口引脚GPIO号, 无流控则引脚号置为255
+            }
+        }
         adc_config {
             adc1_config {
                 match_attr = "adc1_config";
