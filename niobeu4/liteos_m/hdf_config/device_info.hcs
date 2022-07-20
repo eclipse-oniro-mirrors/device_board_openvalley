@@ -38,24 +38,6 @@ root {
                     deviceMatchAttr = "config_uart0";
                 }
             }
-            device_uart1 :: device {
-                uart1 :: deviceNode {
-                    policy = 2;
-                    priority = 60;
-                    moduleName = "ESP32U4_HDF_UART";
-                    serviceName = "HDF_PLATFORM_UART_1";
-                    deviceMatchAttr = "config_uart1";
-                }
-            }
-            device_uart2 :: device {
-                uart2 :: deviceNode {
-                    policy = 2;
-                    priority = 60;
-                    moduleName = "ESP32U4_HDF_UART";
-                    serviceName = "HDF_PLATFORM_UART_2";
-                    deviceMatchAttr = "config_uart2";
-                }
-            }
             device_adc :: device {
                 adc_core :: deviceNode {
                     policy = 0;
@@ -70,6 +52,16 @@ root {
                     moduleName = "ESP32U4_HDF_ADC";
                     serviceName = "ESP32U4_SERVICE_ADC";
                     deviceMatchAttr = "adc1_config";
+                }
+            }
+            device_watchdog :: device {
+                watchdog_default :: deviceNode {
+                    policy = 1;             
+                    priority = 20;          
+                    permission = 0644; 
+                    moduleName = "ESP32U4_WATCHDOG_MODULE_HDF";
+                    serviceName = "HDF_PLATFORM_WATCHDOG_0";
+                    deviceMatchAttr = "watchdog0";
                 }
             }
             device_i2c :: device {
