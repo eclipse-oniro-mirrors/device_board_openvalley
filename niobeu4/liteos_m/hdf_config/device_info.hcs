@@ -29,6 +29,33 @@ root {
                     deviceMatchAttr = "default_config";
                 }
             }
+            device_uart0 :: device {
+                uart0 :: deviceNode {
+                    policy = 2;
+                    priority = 60;
+                    moduleName = "ESP32U4_HDF_UART";
+                    serviceName = "HDF_PLATFORM_UART_0";
+                    deviceMatchAttr = "config_uart0";
+                }
+            }
+            device_uart1 :: device {
+                uart1 :: deviceNode {
+                    policy = 2;
+                    priority = 60;
+                    moduleName = "ESP32U4_HDF_UART";
+                    serviceName = "HDF_PLATFORM_UART_1";
+                    deviceMatchAttr = "config_uart1";
+                }
+            }
+            device_uart2 :: device {
+                uart2 :: deviceNode {
+                    policy = 2;
+                    priority = 60;
+                    moduleName = "ESP32U4_HDF_UART";
+                    serviceName = "HDF_PLATFORM_UART_2";
+                    deviceMatchAttr = "config_uart2";
+                }
+            }
             device_adc :: device {
                 adc_core :: deviceNode {
                     policy = 0;
