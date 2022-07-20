@@ -42,6 +42,13 @@ root {
                 channel = 6;    // 6: GPIO34, ADC1_CHANNEL:0-7, ADC2_CHANNEL:0-9
             }
         }
+        watchdog_config {
+            watchdog0_config {
+                match_attr = "watchdog0";
+                id = 0;         // 看门狗ID
+                timeout = 1;    // 看门狗超时时间，单位s
+            }
+        }
         i2c_config {
             i2c0 {
                 match_attr = "i2c0_config";
