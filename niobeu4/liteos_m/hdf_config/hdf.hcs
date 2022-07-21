@@ -6,15 +6,18 @@ root {
                 match_attr = "default_config";
                 /*         gpio_num_t,    gpio_pull_mode_t,    gpio_drive_cap_t         */
                 /*          GPIO号           上下拉状态            驱动强度               */
-                gpio_attr = ["GPIO_NUM_21", "GPIO_PULLUP_ONLY", "GPIO_DRIVE_CAP_DEFAULT"];
+                gpio_attr = ["GPIO_NUM_2", "GPIO_PULLUP_ONLY", "GPIO_DRIVE_CAP_DEFAULT"];
             }
             gpio_0 :: default_config {
-                gpio_attr = ["GPIO_NUM_21", "GPIO_PULLUP_ONLY", "GPIO_DRIVE_CAP_DEFAULT"];
+                gpio_attr = ["GPIO_NUM_2", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
             gpio_1 :: default_config {
-                gpio_attr = ["GPIO_NUM_25", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
+                gpio_attr = ["GPIO_NUM_27", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
             gpio_2 :: default_config {
+                gpio_attr = ["GPIO_NUM_26", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            gpio_3 :: default_config {
                 gpio_attr = ["GPIO_NUM_39", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
         }
