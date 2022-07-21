@@ -211,7 +211,6 @@ int HotaHalGetOtaPkgPath(char *path, int len)
     }
     ret = memcpy_s(path, len, "/", PATH_SEPARATE_LEN);
     if (ret != 0) {
-        HDF_LOGE("memcpy_s fail!\r\n");
         return OHOS_FAILURE;
     }
     return OHOS_SUCCESS;
@@ -235,7 +234,6 @@ int HotaHalGetMetaData(UpdateMetaData *metaData)
     }
     ret = memcpy_s(metaData, sizeof(UpdateMetaData), &UpdateInfo.metaData, sizeof(UpdateMetaData));
     if (ret != 0) {
-        HDF_LOGE("memcpy_s fail!\r\n");
         return OHOS_FAILURE;
     }
     return OHOS_SUCCESS;
@@ -259,7 +257,6 @@ int HotaHalSetMetaData(UpdateMetaData *metaData)
     }
     ret = memcpy_s(&UpdateInfo.metaData, sizeof(UpdateMetaData), metaData, sizeof(UpdateMetaData));
     if (ret != 0) {
-        HDF_LOGE("memcpy_s fail!\r\n");
         return OHOS_FAILURE;
     }
     return OHOS_SUCCESS;

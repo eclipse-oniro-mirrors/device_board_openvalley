@@ -32,9 +32,11 @@ int esp_rom_printf(const char *, ...);
     void *LocalStoragePointer[1];    \
     void *LocalDelCallback[1]
 
-void TaskDeleteExtensionHook(void *);
+void TaskDeleteExtensionHook(VOID *);
+void TaskCreateExtensionHook(VOID *);
 
-#define LOSCFG_TASK_DELETE_EXTENSION_HOOK(taskCB) TaskDeleteExtensionHook(taskCB)
+#define LOSCFG_TASK_CREATE_EXTENSION_HOOK TaskCreateExtensionHook
+#define LOSCFG_TASK_DELETE_EXTENSION_HOOK TaskDeleteExtensionHook
 #define LOSCFG_STACK_POINT_ALIGN_SIZE 16
 #define OS_HWI_WITH_ARG 1
 #define OS_TICK_INT_NUM 6
