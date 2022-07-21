@@ -32,28 +32,24 @@
 #define SAFE_OFFSET 4
 #define BUFF_MAX_LEN 512
 
-static UINT32 s_LogMuxHandle = 0;
 static void s_vprintf(const char *fmt, va_list ap)
 {
     int len;
-    uint8_t taskLock;
     static char buf[NUM_2][BUFF_MAX_LEN];
+    static char volatile bufLock = 0;
     char *pbuf;
-    if (xPortInterruptedFromISRContext() || g_losTaskLock || (!g_taskScheduled)) {
-        taskLock = 1;
+    if (xPortInterruptedFromISRContext()) {
         pbuf = buf[1];
     } else {
-        taskLock = 0;
         pbuf = buf[0];
-    }
-    if (!taskLock) {
-        while (!s_LogMuxHandle) {
-            LOS_MuxCreate(&s_LogMuxHandle);
-            LOS_TaskDelay(1);
+        while (bufLock) {
+            if (g_taskScheduled) {
+                LOS_TaskDelay(0);
+            }
         }
-        LOS_MuxPend(s_LogMuxHandle, LOS_WAIT_FOREVER);
+        bufLock = (char)TRUE;
     }
-    len = vsnprintf_s(pbuf, sizeof(buf[0]), sizeof(buf[0]) - SAFE_OFFSET, fmt, ap);
+    len = vsnprintf_s(pbuf, BUFF_MAX_LEN - SAFE_OFFSET, BUFF_MAX_LEN - SAFE_OFFSET, fmt, ap);
     if (len > 0) {
         uint16_t fill_len;
         for (fill_len = uart_ll_get_txfifo_len(&UART0); fill_len < len;) {
@@ -62,15 +58,17 @@ static void s_vprintf(const char *fmt, va_list ap)
                 len -= fill_len;
                 pbuf += fill_len;
             }
-            if (!taskLock)
-                LOS_TaskDelay(1);
+            if (bufLock && g_taskScheduled) {
+                LOS_TaskDelay(0);
+            }
             fill_len = uart_ll_get_txfifo_len(&UART0);
         }
         if (len > 0)
             uart_ll_write_txfifo(&UART0, (uint8_t *)pbuf, len);
     }
-    if (!taskLock)
-        LOS_MuxPost(s_LogMuxHandle);
+    if (!xPortInterruptedFromISRContext()) {
+        bufLock = (char)FALSE;
+    }
 }
 
 // Liteos_m的打印

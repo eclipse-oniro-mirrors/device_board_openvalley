@@ -171,18 +171,12 @@ config("public") {
 
       "-lmodule_ActsUtilsFileTest",
       "-lmodule_ActsKvStoreTest",
-      "-lmodule_ActsParameterTest",
+      #"-lmodule_ActsParameterTest",
       "-lmodule_ActsBootstrapTest",
       "-lmodule_ActsDfxFuncTest",
       "-lmodule_ActsHieventLiteTest",
 
-      "-lmodule_ActsWifiServiceTest",
-#       "-lmodule_ActsLwipTest",
       "-lmodule_ActsWifiIotTest",
-      # "-lmodule_ActsDsoftbusMgrTest",
-
-      "-lhota",
-      "-lhal_update_static",
       "-lmodule_ActsUpdaterFuncTest",
 
       "-lhuks_test_common",
@@ -192,6 +186,7 @@ config("public") {
     defines += [ 
       "CONFIG_I2C_SUPPORT",
       "CONFIG_PWM_SUPPORT",
+      "CONFIG_BUILD_TYPE_TEST",
     ]
   }
 }
