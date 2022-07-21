@@ -151,8 +151,8 @@ source ~/.bashrc
 ## 源码获取
 
 ```shell
-mkdir Niobeu4_src && cd Niobeu4_src
-repo init -u https://gitee.com/openharmony-sig/manifest.git -m devboard_Niobeu4.xml
+mkdir niobeu4_src && cd niobeu4_src
+repo init -u https://gitee.com/openharmony-sig/manifest.git -m devboard_niobeu4.xml
 repo sync -c
 repo forall -c 'git lfs pull'
 repo start master --all
@@ -160,7 +160,7 @@ repo start master --all
 
 ## 源码构建
 
-- 进入源码根目录，执行`hb set`命令并选择openvalley下项目`Niobeu4`
+- 进入源码根目录，执行`hb set`命令并选择openvalley下项目`iotlink`
 
   ```shell
   hb set
@@ -174,29 +174,8 @@ repo start master --all
 
   构建成功会提示类似如下信息:
 
-  ```
-  [OHOS INFO] subsystem       	files NO.	percentage	builds NO.	percentage	overlap rate
-  [OHOS INFO] distributedschedule	      15	2.0%	      15	2.0%	1.00
-  [OHOS INFO] hdf             	      62	8.2%	      62	8.2%	1.00
-  [OHOS INFO] hiviewdfx       	      12	1.6%	      12	1.6%	1.00
-  [OHOS INFO] kernel          	      33	4.4%	      33	4.4%	1.00
-  [OHOS INFO] securec         	      39	5.2%	      39	5.2%	1.00
-  [OHOS INFO] startup         	      17	2.3%	      17	2.3%	1.00
-  [OHOS INFO] third_party     	     112	14.9%	     112	14.9%	1.00
-  [OHOS INFO] thirdparty      	     112	14.9%	     112	14.9%	1.00
-  [OHOS INFO] 
-  [OHOS INFO] c overall build overlap rate: 1.00
-  [OHOS INFO] 
-  [OHOS INFO] 
-  部件名:bootstrap_lite                            实际大小:0KB                  标准大小:14KB                  rom合规
-  部件名:hievent_lite                              实际大小:0KB                  标准大小:26KB                  rom合规
-  部件名:hilog_lite                                实际大小:0KB                  标准大小:10KB                  rom合规
-  部件名:init_lite                                 实际大小:0KB                  标准大小:31KB                  rom合规
-  部件名:iot_controller                            实际大小:0KB                                           此部件尚未标准rom               
-  部件名:liteos_m                                  实际大小:0KB                  标准大小:300KB                 rom合规
-  部件名:samgr_lite                                实际大小:0KB                  标准大小:62KB                  rom合规
-  部件名:wifi_lite                                 实际大小:0KB                                           此部件尚未标准rom               
-  [OHOS INFO] Niobeu4 build success
+  ```          
+  [OHOS INFO] iotlink build success
   [OHOS INFO] cost time: 0:00:28
   ```
 
@@ -231,9 +210,9 @@ Windows下可以使用`Flash_Download_Tool`工具进行烧录，点击[这里](h
 固件对应烧录地址如下：
 
 ```
-//out/Niobeu4/Niobeu4/bin/bootloader.bin ---------->  0x1000
-//out/Niobeu4/Niobeu4/bin/partitions.bin ---------->  0x8000
-//out/Niobeu4/Niobeu4/OHOS_Image.bin ---------->  0x10000
+//out/niobeu4/iotlink/bin/bootloader.bin ---------->  0x1000
+//out/niobeu4/iotlink/bin/partitions.bin ---------->  0x8000
+//out/niobeu4/iotlink/OHOS_Image.bin ---------->  0x10000
 ```
 
  ![](figures/flash_download_3.png)
