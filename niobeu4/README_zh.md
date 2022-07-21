@@ -203,12 +203,12 @@ repo start master --all
 - 查看生成的固件
 
   ```shell
-  ls -l out/Niobeu4/Niobeu4/*.bin
+  ls out/niobeu4/iotlink/bin/
   ```
 
   | 固件名称       | 用途                    |
   | -------------- | ----------------------- |
-  | OHOS_Image.bin | OpenHarmony应用镜像文件 |
+  | OHOS_Image.bin | OpenHarmony内核及应用镜像文件 |
   | bootloader.bin | 启动引导镜像文件        |
   | partitions.bin | 分区表镜像文件          |
 
