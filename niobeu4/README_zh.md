@@ -3,7 +3,7 @@
 
 
 ## 简介
-Niobe U4是基于ESP32U4WDH推出的物联网设备开发套件，集成2.4GHz Wifi和蓝牙双模，具有超高的射频性能、稳定性、通用性和可靠性，以及超低的功耗，适用于各种应用场景；Niobe U4开发套件还支持NFC非接触式通讯功能，工作频率13.56MHz，适用于低功耗、低电压和低成本要求的非接触读写器应用；Niobe U4开发套件还支持锂电池供电和充放电管理；开发套件提供一个开箱即用的智能硬件解决方案，方便开发者验证和开发自己的软件和功能，缩短产品研发周期并快速推向市场。
+Niobeu4是基于ESP32U4WDH推出的物联网设备开发套件，集成2.4GHz Wifi和蓝牙双模，具有超高的射频性能、稳定性、通用性和可靠性，以及超低的功耗，适用于各种应用场景；Niobeu4开发套件还支持NFC非接触式通讯功能，工作频率13.56MHz，适用于低功耗、低电压和低成本要求的非接触读写器应用；Niobeu4开发套件还支持锂电池供电和充放电管理；开发套件提供一个开箱即用的智能硬件解决方案，方便开发者验证和开发自己的软件和功能，缩短产品研发周期并快速推向市场。
 
 开发板整体外观视图如下：
 
@@ -12,7 +12,7 @@ Niobe U4是基于ESP32U4WDH推出的物联网设备开发套件，集成2.4GHz W
 
 
 ## 硬件结构与功能框图
-Niobe U4开发套件采用单面元器件的单板形式，板上主控的绝大部分管脚均已引出到排针上，开发人员可根据实际需求，轻松通过跳线连接多种外围器件。功能示意框图如下：
+Niobeu4开发套件采用单面元器件的单板形式，板上主控的绝大部分管脚均已引出到排针上，开发人员可根据实际需求，轻松通过跳线连接多种外围器件。功能示意框图如下：
 
 - 功能框图
 
@@ -26,7 +26,7 @@ Niobe U4开发套件采用单面元器件的单板形式，板上主控的绝大
 | RAM | 448KB ROM+520KB SRAM |
 | GPIO | 35个 |
 | I2C | 2路 |
-| UART | 23个 |
+| UART | 3个 |
 | PWM | 1个 |
 | JTAG | 1个 |
 | ADC | 2个 |
@@ -36,9 +36,7 @@ Niobe U4开发套件采用单面元器件的单板形式，板上主控的绝大
 
 ## 开发环境搭建
 
-系统环境要求：建议Ubuntu20.04版本及以上（若使用18.04版本，需将python3.6升级为python3.8）
-
-系统镜像建议下载地址: [阿里云开源镜像站](https://mirrors.aliyun.com/oldubuntu-releases/releases/20.04.3/)
+系统环境要求：建议[Ubuntu20.04版本](https://mirrors.aliyun.com/oldubuntu-releases/releases/20.04.3/)及以上（若使用18.04版本，需将python3.6升级为python3.8）
 
 ### 更新Ubuntu源
 
@@ -48,7 +46,7 @@ Niobe U4开发套件采用单面元器件的单板形式，板上主控的绝大
 sudo gedit /etc/apt/sources.list
 ```
 
-- 将与系统对应版本源复制并覆盖至上述打开的文件中，保存关闭，执行如下命令。（建议使用[阿里源](https://developer.aliyun.com/mirror/ubuntu)）
+- 将与系统对应版本源复制并覆盖至上述打开的文件中，保存关闭，执行如下命令。（建议使用[ubuntu源](https://developer.aliyun.com/mirror/ubuntu)）
 
 ```
 sudo apt update
@@ -153,8 +151,8 @@ source ~/.bashrc
 ## 源码获取
 
 ```shell
-mkdir niobeu4_src && cd niobeu4_src
-repo init -u https://gitee.com/openharmony-sig/manifest.git -m devboard_niobeu4.xml
+mkdir Niobeu4_src && cd Niobeu4_src
+repo init -u https://gitee.com/openharmony-sig/manifest.git -m devboard_Niobeu4.xml
 repo sync -c
 repo forall -c 'git lfs pull'
 repo start master --all
@@ -162,7 +160,7 @@ repo start master --all
 
 ## 源码构建
 
-- 进入源码根目录，执行`hb set`命令并选择openvalley下项目`niobeu4`
+- 进入源码根目录，执行`hb set`命令并选择openvalley下项目`Niobeu4`
 
   ```shell
   hb set
@@ -198,14 +196,14 @@ repo start master --all
   部件名:liteos_m                                  实际大小:0KB                  标准大小:300KB                 rom合规
   部件名:samgr_lite                                实际大小:0KB                  标准大小:62KB                  rom合规
   部件名:wifi_lite                                 实际大小:0KB                                           此部件尚未标准rom               
-  [OHOS INFO] niobeu4 build success
+  [OHOS INFO] Niobeu4 build success
   [OHOS INFO] cost time: 0:00:28
   ```
 
 - 查看生成的固件
 
   ```shell
-  ls -l out/niobeu4/niobeu4/*.bin
+  ls -l out/Niobeu4/Niobeu4/*.bin
   ```
 
   | 固件名称       | 用途                    |
@@ -233,9 +231,9 @@ Windows下可以使用`Flash_Download_Tool`工具进行烧录，点击[这里](h
 固件对应烧录地址如下：
 
 ```
-//out/niobeu4/niobeu4/bin/bootloader.bin ---------->  0x1000
-//out/niobeu4/niobeu4/bin/partitions.bin ---------->  0x8000
-//out/niobeu4/niobeu4/OHOS_Image.bin ---------->  0x10000
+//out/Niobeu4/Niobeu4/bin/bootloader.bin ---------->  0x1000
+//out/Niobeu4/Niobeu4/bin/partitions.bin ---------->  0x8000
+//out/Niobeu4/Niobeu4/OHOS_Image.bin ---------->  0x10000
 ```
 
  ![](figures/flash_download_3.png)
