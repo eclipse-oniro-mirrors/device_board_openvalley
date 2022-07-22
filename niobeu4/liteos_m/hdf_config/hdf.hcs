@@ -52,6 +52,24 @@ root {
                 timeout = 1;    // 看门狗超时时间，单位s
             }
         }
+        pwm_config {
+            template default_config {
+                match_attr = "config_pwm0";
+                channel = "LEDC_CHANNEL_0";         // PWM通道, 对应 ledc_channel_t 枚举
+                timer = "LEDC_TIMER_0";             // 定时器单元，对应 ledc_timer_t 枚举
+                freq_hz = 2000;                      // PWM周期频率(单位Hz)
+                gpio_pin = "GPIO_NUM_21";           // 外部PWM输出的GPIO Pin脚，对应 gpio_num_t 枚举
+            }
+            pwm0 :: default_config {
+                match_attr = "config_pwm0";
+            }
+            pwm1 :: default_config {
+                match_attr = "config_pwm1";
+                channel = "LEDC_CHANNEL_1";
+                timer = "LEDC_TIMER_1";
+                pwm_pin = "GPIO_NUM_25";
+            }
+        }
         i2c_config {
             i2c0 {
                 match_attr = "i2c0_config";

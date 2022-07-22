@@ -64,6 +64,22 @@ root {
                     deviceMatchAttr = "watchdog0";
                 }
             }
+            device_pwm :: device {
+                pwm0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    moduleName = "ESP32U4_HDF_PLATFORM_PWM";
+                    serviceName = "HDF_PLATFORM_PWM_0";
+                    deviceMatchAttr = "config_pwm0";
+                }
+                pwm1 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    moduleName = "ESP32U4_HDF_PLATFORM_PWM";
+                    serviceName = "HDF_PLATFORM_PWM_1";
+                    deviceMatchAttr = "config_pwm1";
+                }
+            }
             device_i2c :: device {
                 i2c_core :: deviceNode {
                     policy = 2;
