@@ -96,6 +96,15 @@ root {
                     deviceMatchAttr = "i2c0_config";
                 }
             }
+            device_spi :: device {
+                spi0 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    moduleName = "ESP32U4_SPI_MODULE_HDF";
+                    serviceName = "HDF_PLATFORM_SPI_0";
+                    deviceMatchAttr = "spi0_config";
+                }
+            }
         }
     }
 }
