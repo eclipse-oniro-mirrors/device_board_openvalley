@@ -19,6 +19,7 @@ if (ohos_kernel_type == "liteos_m") {
     include_dirs = [ "$target_gen_dir" ]
     include_dirs += [
       "//device/soc/esp/esp32/components/hal/include/hal",
+      "//device/soc/esp/esp32/components/driver/include",
     ]
   }
   hdf_driver(module_name) {
