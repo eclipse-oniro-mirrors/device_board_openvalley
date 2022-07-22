@@ -71,14 +71,32 @@ root {
             }
         }
         i2c_config {
-            i2c0 {
+            template default_config {
                 match_attr = "i2c0_config";
-                mode = 0;    // 0:master 1:slave
-                port = 0;
-                scl_pin = 4;
-                sda_pin = 9;
-                speed = 400000;
+                mode = 0;       // I2C主从模式  0:master 1:slave
+                port = 0;       // I2C端口号
+                scl_pin = 4;    // SCL引脚号
+                sda_pin = 9;    // SDA引脚号
+                speed = 400000; // I2C时钟频率
             }
-        }                
+            i2c0 :: default_config{
+                port = 0;
+            }
+        }  
+        spi_config {
+            template default_config  {
+                match_attr = "spi0_config";
+                spi_num = 0;    // SPI端口号
+                /* spi引脚配置，分别对应 miso_io_num、mosi_io_num、sclk_io_num、spics_io_num */
+                spi_pin = ["GPIO_NUM_2","GPIO_NUM_7","GPIO_NUM_6","GPIO_NUM_10"];
+                clock_speed_hz = 10000000;  // 时钟信号频率、单位(hz)
+                spi_mode = 0;               // SPI模式,表示CPOL与CPHA配置(0-3)
+                max_transfer_size = 12168;  // 最大传输字节数
+                queue_size = 7;             // 队列长度
+            }
+            spi0 :: default_config {
+                spi_num = 0;
+            }
+        }              
     }
 }
