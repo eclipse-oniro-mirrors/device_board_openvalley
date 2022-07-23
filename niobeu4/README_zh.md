@@ -36,7 +36,7 @@ NiobeU4开发套件采用单面元器件的单板形式，板上主控的绝大�
 
 ## 开发环境搭建
 
-系统环境要求：建议[Ubuntu20.04版本](https://mirrors.aliyun.com/oldubuntu-releases/releases/20.04.3/)及以上（若使用18.04版本，需将python3.6升级为python3.8）
+系统环境要求：建议[Ubuntu20.04版本](https://mirrors.aliyun.com/oldubuntu-releases/releases/20.04.3/)及以上（若使用18.04版本，需将Python3.6升级为Python3.8）
 
 ### 更新Ubuntu源
 
@@ -68,7 +68,7 @@ git config --global user.email "xxx"
 git config --global user.name "xxx"
 ```
 
-- 设置python软链接为python3.8
+- 设置Python软链接为Python3.8
 
 ```shell
 sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
@@ -81,7 +81,7 @@ sudo apt-get install python3-setuptools python3-pip -y
 sudo pip3 install --upgrade pip
 ```
 
-- 安装python3工具包
+- 安装Python3工具包
 
 ```
 pip3 install --trusted-host mirrors.aliyun.com -i http://mirrors.aliyun.com/pypi/simple jinja2 ohos-build==0.4.6
