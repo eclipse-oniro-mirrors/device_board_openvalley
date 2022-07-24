@@ -1,18 +1,18 @@
 # device_board_openvalley
 
 ## 介绍
-本仓用于放置openvalley开发板相关内容，各开发板的安装教程和使用说明可点击下表开发板名称查看。
+本仓用于托管湖南开鸿智谷数字产业发展有限公司旗下Niobe系列开发板相关内容，各开发板的安装教程和使用说明可点击下表开发板名称查看。
 
 |           开发板名称            |   SoC型号    |       应用领域       | 设备互联类型 |
 | :-----------------------------: | :----------: | :------------------: | :----------: |
-| [Niobeu4](niobeu4/README_zh.md) | `ESP32U4WDH` | 教育、工业、智能家居 |  Wifi、蓝牙  |
+| [NiobeU4](niobeu4/README_zh.md) | `ESP32U4WDH` | 教育、工业、智能家居 |  Wifi、蓝牙  |
 
 ## 目录结构
 ```
 device/board/openvalley
 ├── niobeu4                               # 开发板名称
-    ├── figures                           # 文档目录，用于存放README_zh.md图片
-    ├── liteos_m                          # LiteOS SDK目录
+    ├── figures                           # 文档图片目录
+    ├── liteos_m                          # liteos_m适配目录
         ├── arch                          # 内核指令架构层目录
         ├── driver                        # 驱动目录
         ├── hals                          # 硬件抽象层目录
