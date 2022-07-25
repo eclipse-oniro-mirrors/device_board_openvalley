@@ -232,7 +232,7 @@ Windows下可以使用`Flash_Download_Tool`工具进行烧录，点击[这里](h
 
  ![](figures/flash_download_1.png)
 
-- 连接开发板的TypeC USB口到PC，查看设备管理器，确定串口端口号。
+- 连接开发板的TypeC口到PC，查看设备管理器，确定串口端口号。
 
 **图5** 设备管理器图
 
