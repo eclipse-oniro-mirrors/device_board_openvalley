@@ -9,29 +9,41 @@ NiobeU4是基于ESP32U4WDH推出的物联网设备开发套件，集成2.4GHz Wi
 
 ![开发板正面](figures/niobeu4硬件介绍.png)
 
+
+
+**图2** NiobeU4开发板底板图
+
+![开发板底板图](figures/niobeu4底板图.png)
+
 ### 硬件结构与功能框图
+
 NiobeU4开发套件采用单面元器件的单板形式，板上主控的绝大部分管脚均已引出到排针上，开发人员可根据实际需求，轻松通过跳线连接多种外围器件。功能示意框图如下。
 
-**图2** NiobeU4开发板功能框图
+**图3** NiobeU4开发板功能框图
 
 ![核心板正面](figures/niobeu4硬件框图.png)
 
 ## 资源和约束
 
-NiobeU4开发板资源十分有限，整板共4MB FLASH，448KB ROM以及520KB SRAM。在编写业务代码时，需注意资源使用效率。
+NiobeU4开发板资源十分有限，整板共4MB FLASH，448KB ROM以及520KB SRAM。在编写业务代码时，需注意内存资源的合理使用。
 
 ## 开发板规格
 
 **表1** NiobeU4开发板规格清单
 
-| 规格类型  | 规格清单                                                     |
-| --------- | ------------------------------------------------------------ |
-| 通用规格  | \- 1×1 2.4GHz频段（ch1～ch14）<br/>\- PHY支持IEEE 802.11b/g/n<br/>- 支持蓝牙 v4.2 完整标准，包含传统蓝牙 (BR/EDR) 和低功耗蓝牙 (BLE)<br/>\- 支持基础结构型网络 (Infrastructure BSS) Station 模式/SoftAP 模式/混杂模式 请注意 ESP32 在 Station 模式下扫描时，SoftAP 信道会同时改变<br/>\- 支持WFA WPA/WPA2 personal、WPS2.0<br/>\- 支持传统蓝牙和低功耗蓝牙的多设备连接<br/>\- 电源电压输入范围：2.3V～3.6V<br/>\- IO电源电压支持1.8V和3.3V<br/>\- 支持RF自校准方案<br/>\- 低功耗：<br/> - Modem­sleep：27mA @3.3V<br/> \- Light­sleep：0.8mA @3.3V<br/> \- Deep­sleep：<br/>     -ULP 协处理器处于工作状态：150 μA @3.3V<br/>     -超低功耗传感器监测方式：150 μA @3.3V<br/>     -RTC 定时器 + RTC 存储器：150 μA @3.3V<br/>\- Hibernation：5 μA @3.3V |
-| PHY特性   | \- 支持IEEE802.11b/g/n天线数据速率<br/>- 支持最大速率：150Mbps<br/>\- 支持20MHz和40MHz带宽<br/>\- 4×虚拟Wi-Fi接口<br/>\- 支持可调节的发射功率 |
-| MAC特性   | \- 支持TX/RX A-MPDU, RX A-MSDU<br/>\- 支持Immediate Block ACK |
-| CPU子系统 | \- 高性能 Xtensa® 32-bit LX6微处理器，最大工作频率160MHz<br/>\- 内嵌448 KB ROM、520 KB SRAM<br/>\- 内嵌 4MB Flash |
-| 外围接口  | \- 4个SPI接口、2个I2C接口、3个UART接口、35个GPIO接口、2路ADC输入、1路PWM、1个USB接口、<br/>\- 外部主晶体频率40M或24M |
-| 其他信息  | \- 封装：QFN48 (6x6 mm) <br/>\- 工作温度：-40℃ ～ +125℃      |
+| 规格类型         | 规格清单                                                     |
+| ---------------- | ------------------------------------------------------------ |
+| 最小系统         | - 高性能 Xtensa® 32-bit LX6微处理器，最大工作频率160MHz<br/>\- 内嵌448 KB ROM、520 KB SRAM<br/>\- 内嵌 4MB Flash |
+| I/O接口          | 10PIN*2的扩展排针扩展20个外接IO口，用户可以对ESP32进行编程，可实现PWM、ADC、DAC、I2C、SPI、RMII、SDIO3.0等复用功能。 |
+| WIFI特性         | - 802.11 b/g/n<br/>- 802.11 n (2.4 GHz) 速度高达 150 Mbps<br/>- 无线多媒体 (WMM)<br/>- 帧聚合 (TX/RX A-MPDU, RX A-MSDU)<br/>- 立即块确认 (Immediate Block ACK)<br/>- 重组 (Defragmentation)<br/>- 802.11 b/g/n<br/>- 802.11 n (2.4 GHz) 速度高达 150 Mbps<br/>- 无线多媒体 (WMM)<br/>- 帧聚合 (TX/RX A-MPDU, RX A-MSDU)<br/>- 立即块确认 (Immediate Block ACK)<br/>- 重组 (Defragmentation) |
+| 蓝牙特性         | - 蓝牙 v4.2 完整标准，包含传统蓝牙 (BR/EDR) 和低功耗蓝牙 (BLE)<br/>- 支持标准 Class-1、 Class-2 和 Class-3，且无需外部功率放大器<br/>- 增强型功率控制 (Enhanced Power Control)<br/>- 输出功率高达 +9 dBm<br/>- NZIF 接收器具有–94 dBm 的 BLE 接收灵敏度<br/>- 自适应跳频 (AFH)<br/>- 基于 SDIO/SPI/UART 接口的标准 HCI<br/>- 高速 UART HCI，最高可达 4 Mbps<br/>- 支持蓝牙 4.2 BR/EDR 和 BLE 双模 controller<br/>- 同步面向连接/扩展同步面向连接 (SCO/eSCO)<br/>- CVSD 和 SBC 音频编解码算法<br/>- 蓝牙微微网 (Piconet) 和散射网 (Scatternet)<br/>- 支持传统蓝牙和低功耗蓝牙的多设备连接<br/>- 支持同时广播和扫描 |
+| NFC感应          | 采用高度集成的工作在13.56MHz下支持LPCD功能的非接触通讯芯片，支持读、写卡功能 |
+| USB 接口         | 可用作开发板的供电电源，同时支持USB转串口，可用作串口调试或者固件下载 |
+| 锂电池接口       | 可外挂锂电池同时支持板载对电池充电<br/>3A同步降压型锂电池充电管理芯片，800KHz固定频率，高达92%以上的充电效率，集成防反灌保护、输出短路保护、芯片及电池温度保护等多种功能 |
+| 显示屏接口       | 默认使用1.44寸 SPI彩色LCD，同时也可选0.96寸I2C单色OLED       |
+| 按键             | Boot按键一个、复位按键一个，可供用户使用的独立按键一个、ADC按键两个 |
+| 电气特性         | 工作温度：-40℃～85℃<br/>芯片典型供电电压：3.3V<br/>典型IO电压：3.3V |
+| 不同模式功耗情况 | WIFI 11B TX模式：AVG≤240mA@3.3V<br/>Modem-sleep:AVG≤44mA@3.3V<br/>Deep-sleep:AVG≤150uA@3.3V |
 
 OpenHarmony基于ESP32平台提供了多种开放能力，提供的关键组件如下表所示。
 
@@ -216,13 +228,13 @@ Windows下可以使用`Flash_Download_Tool`工具进行烧录，点击[这里](h
 - 在windows下解压flash_download_tool_3.9.2.rar。
 - 双击解压后得到的烧录工具flash_download_tool_3.9.2.exe，选择 develop 和 ESP32 进入主界面。
 
-**图3** `Flash_Download_Tool`打开页面图
+**图4** `Flash_Download_Tool`打开页面图
 
-![](figures/flash_download_1.png)
+ ![](figures/flash_download_1.png)
 
 - 连接开发板的TypeC USB口到PC，查看设备管理器，确定串口端口号。
 
-**图4** 设备管理器图
+**图5** 设备管理器图
 
  ![](figures/flash_download_2.png)
 
@@ -236,13 +248,13 @@ Windows下可以使用`Flash_Download_Tool`工具进行烧录，点击[这里](h
 //out/niobeu4/iotlink/OHOS_Image.bin ---------->  0x10000
 ```
 
-**图5** 烧录设置页面图
+**图6** 烧录设置页面图
 
  ![](figures/flash_download_3.png)
 
 - 点击 START 开始下载。下载过程中，下载工具会读取 flash 的信息和芯片的 MAC 地址。我们可以通过勾选框选择是否烧录该文件，一般我们在首次烧录时会全部烧录，为了加快开发效率，调试时只需烧录`OHOS_Image.bin`即可。下载完成后，可以看到如下提示。
 
-**图6** 烧录成功页面图
+**图7** 烧录成功页面图
 
  ![](figures/flash_download_4.png)
 
@@ -254,23 +266,27 @@ Windows下可以使用`Flash_Download_Tool`工具进行烧录，点击[这里](h
 
 - 新建会话（菜单栏->文件->新建），设置会话名称并选择协议为`SERIAL`。
 
-**图7** `xshell`页面新建会话图
+**图8** `xshell`页面新建会话图
 
  ![](figures/xshell_01.png)
 
 - 配置串口参数，选择正确的端口号，波特率设置为115200，如下图所示。
 
-**图8** `xshell`页面串口参数配置图
+**图9** `xshell`页面串口参数配置图
 
  ![](figures/xshell_02.png)
 
 - 由于系统打印信息中没有使用`\r\n`换行，会导致log显示不对齐。需要设置终端属性，用CR+LF接收LF(R)。
 
-**图9** `xshell`页面设置终端属性图![](figures/xshell_03.png)
+**图10** `xshell`页面设置终端属性图
+
+ ![](figures/xshell_03.png)
 
 - 复位设备，日志打印如下所示。
 
-**图10** 日志打印图 ![](figures/xshell_04.png)
+**图11** 日志打印图
+
+ ![](figures/xshell_04.png)
 
 ## 联系
 
