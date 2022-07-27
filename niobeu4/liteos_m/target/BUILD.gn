@@ -135,8 +135,6 @@ config("public") {
     # "-Tesp32.rom.newlib-time.ld",
     "-Wl,--wrap=longjmp",
     "-Wl,--undefined=uxTopUsedPriority",
-    "-Wl,--wrap=mbedtls_mpi_exp_mod",
-    "-Wl,--wrap=mbedtls_mpi_mul_mpi",
     "-unewlib_include_heap_impl",
     "-unewlib_include_syscalls_impl",
     "-upthread_include_pthread_impl",

@@ -19,11 +19,11 @@ config("mbedtls_config") {
   include_dirs = [
     "include",
     "//third_party/mbedtls/include",
-    "//device/soc/esp/esp32/components/mbedtls/port/include",
+    # "//device/soc/esp/esp32/components/mbedtls/port/include",
     "//device/soc/esp/esp32/components",
   ]
   defines += [
-    "MBEDTLS_CONFIG_FILE=\"mbedtls/esp_config.h\"",
+    "MBEDTLS_CONFIG_FILE=\"mbedtls/config.h\"",
   ]
 }
 
