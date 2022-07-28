@@ -75,7 +75,7 @@ board_include_dirs = [
 ]
 
 # Board adapter dir for OHOS components.
-board_adapter_dir = ""
+board_adapter_dir = "//device/board/openvalley/niobeu4/liteos_m"
 
 # Sysroot path.
 board_configed_sysroot = ""
