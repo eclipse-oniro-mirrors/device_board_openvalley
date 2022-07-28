@@ -31,9 +31,12 @@ ESP_SDK_PATH = "//device/soc/esp/esp32/components/"
 import("${ESP_SDK_PATH}sdkconfig.gni")
 build_ext_component("elf2bin") {
   exec_path = rebase_path(ESP_SDK_PATH)
-  _output_file = rebase_path("$root_out_dir/OHOS_Image.bin")
-  _input_file = rebase_path("$root_out_dir/OHOS_Image")
-  command = "python esptool_py/esptool/esptool.py --chip ${CONFIG_IDF_TARGET} elf2image --flash_mode ${CONFIG_ESPTOOLPY_FLASHMODE} --flash_freq ${CONFIG_ESPTOOLPY_FLASHFREQ} --flash_size ${CONFIG_ESPTOOLPY_FLASHSIZE} --min-rev 0 --elf-sha256-offset 0xb0 -o ${_output_file} ${_input_file}"
+  _input_boot_file = rebase_path("$root_out_dir/bin/bootloader.elf")
+  _output_boot_file = rebase_path("$root_out_dir/bin/bootloader.bin")
+  _input_app_file = rebase_path("$root_out_dir/OHOS_Image")
+  _output_app_file = rebase_path("$root_out_dir/OHOS_Image.bin")
+  command =  "esptool.py --chip ${CONFIG_IDF_TARGET} elf2image --flash_mode ${CONFIG_ESPTOOLPY_FLASHMODE} --flash_freq ${CONFIG_ESPTOOLPY_FLASHFREQ} --flash_size ${CONFIG_ESPTOOLPY_FLASHSIZE} --min-rev 0 --elf-sha256-offset 0xb0 -o ${_output_app_file} ${_input_app_file} && "
+  command += "esptool.py --chip ${CONFIG_IDF_TARGET} elf2image --flash_mode ${CONFIG_ESPTOOLPY_FLASHMODE} --flash_freq ${CONFIG_ESPTOOLPY_FLASHFREQ} --flash_size ${CONFIG_ESPTOOLPY_FLASHSIZE} -o ${_output_boot_file} ${_input_boot_file}"
   deps = [
     "//build/lite:ohos",
     "//kernel/liteos_m:build_kernel_image",
