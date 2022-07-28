@@ -18,11 +18,10 @@ module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {
   sources = [
     "wifi_device.c",
+    "esp_wifi_wpa.c",
   ]
   deps = [ "//foundation/communication/wifi_lite:wifi" ]
 
-  # include_dirs = [ "//kernel/liteos_m/components/net/lwip-2.1/porting/include" ]
-  # include_dirs += [ "//third_party/lwip/src/include" ]
   ESP_SDK_PATH="//device/soc/esp/esp32/components/"
   include_dirs = [
     "//foundation/communication/wifi_lite/interfaces/wifiservice",
@@ -35,26 +34,5 @@ kernel_module(module_name) {
     ESP_SDK_PATH+"lwip",
     ESP_SDK_PATH+"lwip/lwip/src/include",
     ESP_SDK_PATH+"lwip/port/esp32/include",
-  #   "//device/soc/esp/esp32/components/lwip/include/apps",
-  #   "//device/soc/esp/esp32/components/lwip/include/apps/sntp",
-  #   "//device/soc/esp/esp32/components/lwip/lwip/src/include",
-  #   "//device/soc/esp/esp32/components/lwip/port/esp32/include",
-  #   "//device/soc/esp/esp32/components/lwip/port/esp32/include/arch",
-  #   "//device/soc/esp/esp32/components/esp_common/include",
-  #   "//device/soc/esp/esp32/components",
-  #   "//device/soc/esp/esp32/components/freertos/include",
-  #   "//device/soc/esp/esp32/components/freertos/port/xtensa/include",
-  #   "//device/soc/esp/esp32/components/xtensa/include",
-  #   "//device/soc/esp/esp32/components/xtensa/esp32/include",
-  #   "//device/soc/esp/esp32/components/esp_rom/include",
-  #   "//device/soc/esp/esp32/components/spi_flash/sim/stubs/esp_timer/include",
-  #   "//device/soc/esp/esp32/components/esp_system/include",
-  #   "//device/soc/esp/esp32/components/newlib/platform_include",
-  #   "//device/soc/esp/esp32/components/esp_hw_support/include",
-  #   "//device/soc/esp/esp32/components/hal/include",
-  #   "//device/soc/esp/esp32/components/soc/esp32/include",
-  #   "//device/soc/esp/esp32/components/hal/esp32/include",
-  #   "//device/soc/esp/esp32/components/soc/include",
-  #   "//device/soc/esp/esp32/components/heap/include",
   ]
 }
