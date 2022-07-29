@@ -149,7 +149,13 @@ config("public") {
     "m",
     "gcc",
     "stdc++",
-    "esp32",
+    "btdm_app",
+    "core",
+    "rtc",
+    "net80211",
+    "pp",
+    "phy",
+    "xt_hal",
   ]
 
   if(build_xts) {
