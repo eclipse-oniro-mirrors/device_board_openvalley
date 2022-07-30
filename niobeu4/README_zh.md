@@ -114,15 +114,7 @@ sudo pip3 install --upgrade pip
 - 安装Python3工具包。
 
 ```
-pip3 install --trusted-host mirrors.aliyun.com -i http://mirrors.aliyun.com/pypi/simple jinja2 ohos-build==0.4.6
-```
-
-- 安装乐鑫esptool工具。
-
-```
-git clone https://github.com/espressif/esptool.git
-cd esptool
-pip install --user -e .
+pip3 install --trusted-host mirrors.aliyun.com -i http://mirrors.aliyun.com/pypi/simple jinja2 ohos-build==0.4.6 esptool
 ```
 
 - 将hb工具添加至环境变量。
