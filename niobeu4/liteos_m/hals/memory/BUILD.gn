@@ -11,14 +11,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//drivers/adapter/khdf/liteos_m/hdf.gni")
-module_switch = defined(LOSCFG_DRIVERS_HDF_PLATFORM_GPIO)
-hdf_driver("gpio") {
+import("//kernel/liteos_m/liteos.gni")
+
+module_name = get_path_info(rebase_path("."), "name")
+kernel_module(module_name) {
   sources = [
-    "gpio.c",
+    "ohos_mem_pool.c",
   ]
 }
 
-config("public") {
-  include_dirs = [ "." ]
+config("public"){
+  include_dirs = [ 
+    "//utils/native/lite/memory/include",
+  ]
 }

@@ -11,14 +11,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//drivers/adapter/khdf/liteos_m/hdf.gni")
-module_switch = defined(LOSCFG_DRIVERS_HDF_PLATFORM_ADC)
-hdf_driver("adc") {
-  sources = [
-    "adc.c",
-  ]
-}
+import("//kernel/liteos_m/liteos.gni")
 
-config("public") {
-  include_dirs = [ "." ]
+module_name = get_path_info(rebase_path("."), "name")
+kernel_module(module_name) {
+  sources = [
+    "syscalls.c",
+  ]
+  include_dirs = [ 
+    "//utils/native/lite/memory/include",
+    "//base/hiviewdfx/hiview_lite",
+    "//base/hiviewdfx/hilog_lite/frameworks/mini",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr"
+  ]
 }

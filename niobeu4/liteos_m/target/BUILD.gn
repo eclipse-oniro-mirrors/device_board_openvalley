@@ -15,30 +15,35 @@ import("//kernel/liteos_m/liteos.gni")
 module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {
   sources = [
-    "target_run.c",
-    "target_startup.o",
-  ]
-  include_dirs = [
-    "//kernel/liteos_m/include",
-    "//kernel/liteos_m/kernel/include",
-    "//utils/native/lite/include",
-    "//utils/native/lite/memory/include",
-    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr",
-    "//base/hiviewdfx/hiview_lite",
-    "//base/hiviewdfx/hilog_lite/frameworks/mini",
-    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
-    "//drivers/framework/core/common/include/manager",
+    "src/target_run.c",
   ]
   deps = [
+    ":target_startup",
     "//vendor/openvalley/niobeu4/demo:demo",
   ]
 }
+
+lite_library("target_startup") {
+  target_type = "static_library"
+  sources = []
+  deps = [
+    ":copy_target_startup"
+  ]
+}
+
+build_ext_component("copy_target_startup") {
+    exec_path = rebase_path(".", root_build_dir)
+    out_root_path = rebase_path(root_out_dir)
+    command = "cp lib/libtarget_startup.a $out_root_path/libs/libtarget_startup.a"
+}
+
+
 
 config("public") {
   ESP_SDK_PATH="//device/soc/esp/esp32/components/"
   include_dirs = [
     ".",
-    "../include",
+    "include",
     ESP_SDK_PATH+"esp_rom/include",
     ESP_SDK_PATH+"esp_rom/esp32",
     ESP_SDK_PATH+"esp_rom/include/esp32",

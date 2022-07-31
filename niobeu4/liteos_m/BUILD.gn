@@ -16,12 +16,11 @@ if (ohos_kernel_type == "liteos_m") {
   module_name = get_path_info(rebase_path("."), "name")
   module_group(module_name) {
     modules = [
-      "target",
-      "littlefs",
-      "drivers",
-      "hals",
       "arch",
+      "hals",
       "hdf_config",
+      "target",
+      "third_party_adapter",
     ]
   }
 }

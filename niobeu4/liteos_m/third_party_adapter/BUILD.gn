@@ -11,17 +11,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//drivers/hdf_core/adapter/khdf/liteos_m/hdf.gni")
-
-module_group("drivers") {
+import("//kernel/liteos_m/liteos.gni")
+module_name = get_path_info(rebase_path("."), "name")
+module_group(module_name) {
   modules = [
-    # "osal",
-    # "watchdog",
-    # "wifi",
-    # "adc",
-    # "gpio",
-    # "uart",
-    # "i2c",
+    "littlefs",
   ]
 }
-

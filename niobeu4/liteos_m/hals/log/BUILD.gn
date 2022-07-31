@@ -11,16 +11,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+import("//kernel/liteos_m/liteos.gni")
 
-module_switch = defined(LOSCFG_DRIVERS_HDF_PLATFORM_I2C)
-module_name = "i2c"
-hdf_driver(module_name) {
+module_name = get_path_info(rebase_path("."), "name")
+kernel_module(module_name) {
   sources = [
-    "i2c.c",
+    "log.c",
   ]
 }
 
-config("public") {
-  include_dirs = [ "." ]
+config("public"){
+  include_dirs = [
+    "//base/hiviewdfx/hiview_lite",
+    "//base/hiviewdfx/hilog_lite/frameworks/mini",
+    "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
+    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr"
+  ]
 }
