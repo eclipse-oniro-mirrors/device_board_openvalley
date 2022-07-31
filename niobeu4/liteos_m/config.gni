@@ -72,6 +72,8 @@ board_ld_flags = []
 # Board related headfiles search path.
 board_include_dirs = [ 
   "//utils/native/lite/include",
+  "//device/soc/esp/esp32/components/osal/include",
+  "//device/soc/esp/esp32/components/osal/port/xtensa/include",
 ]
 
 # Board adapter dir for OHOS components.
