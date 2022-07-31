@@ -19,8 +19,6 @@ config("mbedtls_config") {
   include_dirs = [
     "include",
     "//third_party/mbedtls/include",
-    # "//device/soc/esp/esp32/components/mbedtls/port/include",
-    "//device/soc/esp/esp32/components",
   ]
   defines += [
     "MBEDTLS_CONFIG_FILE=\"mbedtls/config.h\"",
@@ -28,6 +26,6 @@ config("mbedtls_config") {
 }
 
 group("mbedtls") {
-  public_deps = [  ]
+  public_deps = []
   public_configs = [ ":mbedtls_config" ]
 }

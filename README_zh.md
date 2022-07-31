@@ -14,12 +14,19 @@ device/board/openvalley
     ├── figures                           # 文档图片目录
     ├── liteos_m                          # liteos_m适配目录
         ├── arch                          # 内核指令架构层目录
-        ├── driver                        # 驱动目录
         ├── hals                          # 硬件抽象层目录
+         	├── drivers					  # 驱动适配目录
+            ├── iot_hardware			  # iothardware子系统适配
+            ├── log						  # 日志输出适配
+            ├── memory					  # 内存管理函数适配
+            ├── syscalls				  # 系统调用函数适配
+            ├── update				      # 程序升级子系统适配
+            └── utils					  # 通用接口适配
         ├── hdf_config                    # hdf配置目录
-        ├── include                       # 板级配置头文件目录
-        ├── littlefs                      # littlefs适配目录
-        ├── target                        # 启动文件目录
+        ├── target                        # 板级配置目录
+        ├── third_party_adapter           # 三方库适配目录
+        	├── littlefs				  # littlefs文件系统适配	
+        	├── mbedtls					  # 轻量级加密库适配
 
 ├── xxx                                   # 其它板型，持续开发中...                    
 ```

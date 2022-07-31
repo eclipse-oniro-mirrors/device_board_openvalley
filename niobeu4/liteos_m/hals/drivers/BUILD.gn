@@ -11,20 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import("//drivers/adapter/khdf/liteos_m/hdf.gni")
+import("//kernel/liteos_m/liteos.gni")
 
-module_switch = defined(LOSCFG_DRIVERS_HDF)
-module_name = "esp_osal"
-hdf_driver(module_name) {
-  sources = [
-    "osal.c",
+module_name = get_path_info(rebase_path("."), "name")
+module_group(module_name) {
+  modules = [
+    "bluetooth_lite",
+    "wifi_lite",
   ]
-  include_dirs = [
-    "../../../../components/esp_system/include",
-    "../../../../components/esp_common/include"
-  ]
-}
-
-config("public") {
-  include_dirs = [ "." ]
 }
