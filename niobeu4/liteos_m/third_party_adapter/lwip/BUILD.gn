@@ -1,0 +1,144 @@
+# Copyright (c) 2022 Hunan OpenValley Digital Industry Development Co., Ltd.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import("//kernel/liteos_m/liteos.gni")
+import("$LITEOSTHIRDPARTY/lwip/lwip.gni")
+import("$LITEOSTOPDIR/components/net/lwip-2.1/lwip_porting.gni")
+
+module_switch = defined(LOSCFG_NET_LWIP)
+module_name = get_path_info(rebase_path("."), "name")
+lite_library(module_name) {
+  target_type = "static_library"
+  cflags_c = [
+    "-std=gnu99",
+    "-O2",
+    "-Wno-frame-address",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-fstrict-volatile-bitfields",
+    "-mlongcalls",
+    "-nostdlib",
+    "-Wall",
+    "-Werror=all",
+    "-Wno-error=unused-function",
+    "-Wno-error=unused-but-set-variable",
+    "-Wno-error=unused-variable",
+    "-Wno-error=deprecated-declarations",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-sign-compare",
+    "-Wno-old-style-declaration",
+    "-Wno-address",
+    "-MMD",
+    "-MP",
+    "-Wno-type-limits",
+  ]
+
+  cflags = []
+  cflags_cc = []
+  defines = [
+    "ESP_PLATFORM",
+    "NDEBUG",
+    "_GNU_SOURCE",
+    "UNITY_INCLUDE_CONFIG_H",
+    "HAVE_CONFIG_H",
+  ]
+
+  LWIP_PATH="//third_party/lwip/src/"
+  ESP_LWIP_PATH="//device/soc/esp/esp32/components/esp_lwip/"
+  include_dirs = [
+    "${ESP_LWIP_PATH}include/apps",
+    "${ESP_LWIP_PATH}port/esp32/include",
+    "${ESP_LWIP_PATH}port/esp32/include/lwip",
+    "${ESP_LWIP_PATH}port/esp32/include/arch",
+    "${ESP_LWIP_PATH}lwip/src/include",
+    "${ESP_LWIP_PATH}../esp_event/include",
+    "${ESP_LWIP_PATH}../esp_netif/include",
+    "${ESP_LWIP_PATH}../esp_wifi/include",
+    "${ESP_LWIP_PATH}../esp_wifi/esp32/include",
+    "${ESP_LWIP_PATH}../",
+    "${ESP_LWIP_PATH}../tcpip_adapter/include",
+    "${LWIP_PATH}include",
+  ]
+  
+  sources = [
+    "${LWIP_PATH}api/api_lib.c",
+    "${LWIP_PATH}api/api_msg.c",
+    "${LWIP_PATH}api/err.c",
+    "${LWIP_PATH}api/if_api.c",
+    "${LWIP_PATH}api/netbuf.c",
+    "${LWIP_PATH}api/netdb.c",
+    "${LWIP_PATH}api/netifapi.c",
+    "${LWIP_PATH}api/tcpip.c",
+    "${LWIP_PATH}core/altcp.c",
+    "${LWIP_PATH}core/altcp_alloc.c",
+    "${LWIP_PATH}core/altcp_tcp.c",
+    "${LWIP_PATH}core/def.c",
+    "${LWIP_PATH}core/dns.c",
+    "${LWIP_PATH}core/inet_chksum.c",
+    "${LWIP_PATH}core/init.c",
+    "${LWIP_PATH}core/ip.c",
+    "${LWIP_PATH}core/ipv4/autoip.c",
+    "${LWIP_PATH}core/ipv4/dhcp.c",
+    "${LWIP_PATH}core/ipv4/etharp.c",
+    "${LWIP_PATH}core/ipv4/icmp.c",
+    "${LWIP_PATH}core/ipv4/igmp.c",
+    "${LWIP_PATH}core/ipv4/ip4.c",
+    "${LWIP_PATH}core/ipv4/ip4_addr.c",
+    "${LWIP_PATH}core/ipv4/ip4_frag.c",
+    "${LWIP_PATH}core/mem.c",
+    "${LWIP_PATH}core/memp.c",
+    "${LWIP_PATH}core/netif.c",
+    "${LWIP_PATH}core/raw.c",
+    "${LWIP_PATH}core/stats.c",
+    "${LWIP_PATH}core/sys.c",
+    "${LWIP_PATH}core/tcp_out.c",
+    "${LWIP_PATH}core/timeouts.c",
+    "${LWIP_PATH}core/udp.c",
+    "${LWIP_PATH}core/tcp.c",
+    "${LWIP_PATH}core/tcp_in.c",
+    "${LWIP_PATH}netif/bridgeif.c",
+    "${LWIP_PATH}netif/bridgeif_fdb.c",
+    "${LWIP_PATH}netif/ethernet.c",
+  ]
+  sources += [
+    "${ESP_LWIP_PATH}apps/dhcpserver/dhcpserver.c",
+    "${ESP_LWIP_PATH}lwip/src/api/sockets.c",
+    "${ESP_LWIP_PATH}lwip/src/core/pbuf.c",
+    "${ESP_LWIP_PATH}port/esp32/sys_arch.c",
+    "${ESP_LWIP_PATH}port/esp32/hooks/lwip_default_hooks.c",
+    "${ESP_LWIP_PATH}port/esp32/hooks/tcp_isn_default.c",
+    "${ESP_LWIP_PATH}port/esp32/netif/dhcp_state.c",
+    "${ESP_LWIP_PATH}port/esp32/netif/wlanif.c",
+    "${ESP_LWIP_PATH}port/esp32/no_vfs_syscalls.c",
+  ]
+  deps = [
+    "//third_party/mbedtls:mbedtls_static",
+  ]
+}
+config("public") {
+  LWIP_PORTING_DIR = get_path_info("//device/soc/esp/esp32/components/esp_lwip/", "abspath")
+  CUR_PORTING_DIR = get_path_info(".", "abspath")
+  include_dirs = [
+    "${CUR_PORTING_DIR}/include",
+    "${CUR_PORTING_DIR}/include/lwip",
+    "${LWIP_PORTING_DIR}/lwip/src/include",
+    "${LWIP_PORTING_DIR}/port/esp32/include",
+    "${LWIP_PORTING_DIR}/port/esp32/include/lwip",
+  ] + LWIP_INCLUDE_DIRS
+  defines = [
+    "LWIP_CONFIG_NUM_SOCKETS=128",
+    "FD_SETSIZE=1024",
+  ]
+  
+}
