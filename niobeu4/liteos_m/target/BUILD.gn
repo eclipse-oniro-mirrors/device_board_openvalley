@@ -15,32 +15,11 @@ import("//kernel/liteos_m/liteos.gni")
 module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {
   sources = [
-    "src/target_run.c",
+    "src/target_startup.c",
   ]
   deps = [
-    ":target_startup",
     "//vendor/openvalley/niobeu4/demo:demo",
   ]
-}
-use_local_libaray = true
-lite_library("target_startup") {
-  target_type = "static_library"
-  if(use_local_libaray == true) {
-    sources = []
-    deps = [
-      ":copy_target_startup"
-    ]
-  } else {
-    sources = [
-      "src/target_startup.c",
-    ]
-  }
-}
-
-build_ext_component("copy_target_startup") {
-    exec_path = rebase_path(".", root_build_dir)
-    out_root_path = rebase_path(root_out_dir)
-    command = "cp lib/libtarget_startup.a $out_root_path/libs/libtarget_startup.a"
 }
 
 config("public") {
