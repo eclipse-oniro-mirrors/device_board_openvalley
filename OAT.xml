@@ -62,7 +62,7 @@
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binaryFile" >
                 <filteritem type="filename" name="*.png" desc="all so file have check "/>
-                <filteritem type="filepath" name="niobeu4/liteos_m/target/target_startup.o" desc=""/>
+                <filteritem type="filepath" name="niobeu4/liteos_m/target/lib/libtarget_startup.a" desc=""/>
             </filefilter>
         </filefilterlist>
     </oatconfig>
