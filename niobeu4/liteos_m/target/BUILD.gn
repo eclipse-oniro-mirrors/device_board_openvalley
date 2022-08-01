@@ -22,13 +22,19 @@ kernel_module(module_name) {
     "//vendor/openvalley/niobeu4/demo:demo",
   ]
 }
-
+use_local_libaray = true
 lite_library("target_startup") {
   target_type = "static_library"
-  sources = []
-  deps = [
-    ":copy_target_startup"
-  ]
+  if(use_local_libaray == true) {
+    sources = []
+    deps = [
+      ":copy_target_startup"
+    ]
+  } else {
+    sources = [
+      "src/target_startup.c",
+    ]
+  }
 }
 
 build_ext_component("copy_target_startup") {
@@ -36,8 +42,6 @@ build_ext_component("copy_target_startup") {
     out_root_path = rebase_path(root_out_dir)
     command = "cp lib/libtarget_startup.a $out_root_path/libs/libtarget_startup.a"
 }
-
-
 
 config("public") {
   ESP_SDK_PATH="//device/soc/esp/esp32/components/"
