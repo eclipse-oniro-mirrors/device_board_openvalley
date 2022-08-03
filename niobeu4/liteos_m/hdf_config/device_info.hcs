@@ -104,6 +104,20 @@ root {
                     serviceName = "HDF_PLATFORM_SPI_0";
                     deviceMatchAttr = "spi0_config";
                 }
+                spi1 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    moduleName = "ESP32U4_SPI_MODULE_HDF";
+                    serviceName = "HDF_PLATFORM_SPI_1";
+                    deviceMatchAttr = "spi1_config";
+                }
+                spi2 :: deviceNode {
+                    policy = 2;
+                    priority = 100;
+                    moduleName = "ESP32U4_SPI_MODULE_HDF";
+                    serviceName = "HDF_PLATFORM_SPI_2";
+                    deviceMatchAttr = "spi2_config";
+                }
             }
         }
     }
