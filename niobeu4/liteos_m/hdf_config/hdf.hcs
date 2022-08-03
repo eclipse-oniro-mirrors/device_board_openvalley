@@ -8,30 +8,32 @@ root {
                 /*          GPIO号           上下拉状态            驱动强度               */
                 gpio_attr = ["GPIO_NUM_2", "GPIO_PULLUP_ONLY", "GPIO_DRIVE_CAP_DEFAULT"];
             }
-            gpio_0 :: default_config {
+            gpio_0 :: default_config {  // 双色LED(红色)
                 gpio_attr = ["GPIO_NUM_2", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
-            gpio_1 :: default_config {
+            gpio_1 :: default_config {  // 双色LED(蓝色)
                 gpio_attr = ["GPIO_NUM_27", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
-            /* POWER */
-            gpio_2 :: default_config {
+            gpio_2 :: default_config {  // 电源使能
                 gpio_attr = ["GPIO_NUM_26", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
-            gpio_3 :: default_config {
+            gpio_3 :: default_config {  // 独立按键
                 gpio_attr = ["GPIO_NUM_39", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
-            /* SPI_LCD DC */
-            gpio_4 :: default_config {
+            gpio_4 :: default_config {  // SPI_LCD 数据命令控制脚
                 gpio_attr = ["GPIO_NUM_15", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
-            /* SPI_LCD RST */
-            gpio_5 :: default_config {
+            gpio_5 :: default_config {  // SPI_LCD 复位引脚
                 gpio_attr = ["GPIO_NUM_18", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
-            /* SPI_LCD BCKL */
-            gpio_6 :: default_config {
+            gpio_6 :: default_config {  // SPI_LCD 背光控制引脚
                 gpio_attr = ["GPIO_NUM_22", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            gpio_7 :: default_config {  // NFC芯片复位引脚
+                gpio_attr = ["GPIO_NUM_10", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            gpio_8 :: default_config {  // NFC中断引脚
+                gpio_attr = ["GPIO_NUM_13", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
         }
         uart_config {
