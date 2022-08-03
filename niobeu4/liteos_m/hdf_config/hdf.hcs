@@ -14,11 +14,24 @@ root {
             gpio_1 :: default_config {
                 gpio_attr = ["GPIO_NUM_27", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
+            /* POWER */
             gpio_2 :: default_config {
                 gpio_attr = ["GPIO_NUM_26", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
             gpio_3 :: default_config {
                 gpio_attr = ["GPIO_NUM_39", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            /* SPI_LCD DC */
+            gpio_4 :: default_config {
+                gpio_attr = ["GPIO_NUM_15", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            /* SPI_LCD RST */
+            gpio_5 :: default_config {
+                gpio_attr = ["GPIO_NUM_18", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
+            }
+            /* SPI_LCD BCKL */
+            gpio_6 :: default_config {
+                gpio_attr = ["GPIO_NUM_22", "GPIO_FLOATING", "GPIO_DRIVE_CAP_DEFAULT"];
             }
         }
         uart_config {
@@ -86,16 +99,21 @@ root {
         spi_config {
             template default_config  {
                 match_attr = "spi0_config";
-                spi_num = 0;    // SPI端口号
-                /* spi引脚配置，分别对应 miso_io_num、mosi_io_num、sclk_io_num、spics_io_num */
-                spi_pin = ["GPIO_NUM_2","GPIO_NUM_7","GPIO_NUM_6","GPIO_NUM_10"];
-                clock_speed_hz = 10000000;  // 时钟信号频率、单位(hz)
-                spi_mode = 0;               // SPI模式,表示CPOL与CPHA配置(0-3)
-                max_transfer_size = 12168;  // 最大传输字节数
-                queue_size = 7;             // 队列长度
+                spi_num = 0;                // SPI端口号
+                miso_pin = 25;
+                mosi_pin = 23;
+                sck_pin  = 19;
+                cs_pin   = 5;
+                speed    = 10000000;        // 时钟信号频率、单位(hz)
+                mode     = 0;               // SPI模式,表示CPOL与CPHA配置(0-3)
+                max_transfer_size = 35108;  // 最大传输字节数
+                queue_size = 1;             // 队列长度
+                dma_chn = 0;
             }
-            spi0 :: default_config {
-                spi_num = 0;
+            spi1 :: default_config {
+                match_attr = "spi1_config";
+                spi_num = 1;
+                dma_chn = 2;
             }
         }              
     }
