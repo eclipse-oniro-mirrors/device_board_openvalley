@@ -84,7 +84,7 @@ static DevWifiInfo_t DevWifiInfo = {0};
 static const char TAG[] = {"WifiLite."};
 static const char NullBssid[WIFI_MAC_LEN] = {0, 0, 0, 0, 0, 0};
 
-static void MEMCPY_S(void *dst, int dstSize, void *src, int srcSize)
+static void MEMCPY_S(VOID *dst, int dstSize, VOID *src, int srcSize)
 {
     if ((dst == NULL) || (src == NULL)) {
         return;
@@ -261,13 +261,13 @@ static void SendOnHotspotStateChanged(DevWifiInfo_t *info, WifiEventState event)
     }
 }
 
-static void event_got_ip_handler(void *arg, esp_event_base_t event_base,
-                                 int32_t event_id, void *event_data)
+static void event_got_ip_handler(VOID *arg, esp_event_base_t event_base,
+                                 int32_t event_id, VOID *event_data)
 {
     DevWifiInfo.ip_ok = 1;
 }
 
-static void wifi_event_scan_down_proc(void *event_data)
+static void wifi_event_scan_down_proc(VOID *event_data)
 {
     uint16_t size = 0;
     DevWifiInfo.scan_ok = 1;
@@ -275,7 +275,7 @@ static void wifi_event_scan_down_proc(void *event_data)
     SendOnWifiScanStateChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE, size);
 }
 
-static void wifi_event_sta_connected_proc(void *event_data)
+static void wifi_event_sta_connected_proc(VOID *event_data)
 {
     WifiLinkedInfo linkInfo = {0};
     wifi_ap_record_t ap_info;
@@ -288,7 +288,7 @@ static void wifi_event_sta_connected_proc(void *event_data)
     SendOnWifiConnectionChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE, &linkInfo);
 }
 
-static void wifi_event_sta_disconnected_proc(void *event_data)
+static void wifi_event_sta_disconnected_proc(VOID *event_data)
 {
     WifiLinkedInfo linkInfo = {0};
     wifi_event_sta_disconnected_t *disconnected = (wifi_event_sta_disconnected_t *)event_data;
@@ -299,7 +299,7 @@ static void wifi_event_sta_disconnected_proc(void *event_data)
     SendOnWifiConnectionChanged(&DevWifiInfo, WIFI_STATE_NOT_AVAILABLE, &linkInfo);
 }
 
-static void wifi_event_ap_connected_proc(void *event_data)
+static void wifi_event_ap_connected_proc(VOID *event_data)
 {
     StationInfo staInfo = {0};
     wifi_event_ap_staconnected_t *connect_event = (wifi_event_ap_staconnected_t *)event_data;
@@ -307,7 +307,7 @@ static void wifi_event_ap_connected_proc(void *event_data)
     SendOnHotspotStaJoin(&DevWifiInfo, &staInfo);
 }
 
-static void wifi_event_ap_disconnected_proc(void *event_data)
+static void wifi_event_ap_disconnected_proc(VOID *event_data)
 {
     StationInfo staInfo = {0};
     wifi_event_ap_stadisconnected_t *disconnect_event = (wifi_event_ap_stadisconnected_t *)event_data;
@@ -317,13 +317,13 @@ static void wifi_event_ap_disconnected_proc(void *event_data)
     SendOnHotspotStaLeave(&DevWifiInfo, &staInfo);
 }
 
-static void wifi_event_ap_start_proc(void *event_data)
+static void wifi_event_ap_start_proc(VOID *event_data)
 {
     SendOnHotspotStateChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE);
 }
 
-static void event_handler(void *arg, esp_event_base_t event_base,
-                          int32_t event_id, void *event_data)
+static void event_handler(VOID *arg, esp_event_base_t event_base,
+                          int32_t event_id, VOID *event_data)
 {
     LOG("event=%d", event_id);
     switch (event_id) {

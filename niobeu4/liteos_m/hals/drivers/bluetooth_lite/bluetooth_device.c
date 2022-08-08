@@ -100,7 +100,7 @@ BtError BleStopScan(void)
     return esp_ble_gap_stop_scanning();
 }
 
-BtError BleGattcConnect(int clientId, void *func,
+BtError BleGattcConnect(int clientId, VOID *func,
                         const BdAddr *bdAddr, bool isAutoConnect,
                         BtTransportType transport)
 {
