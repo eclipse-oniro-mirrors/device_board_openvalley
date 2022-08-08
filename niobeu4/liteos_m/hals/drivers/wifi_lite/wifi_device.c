@@ -354,7 +354,7 @@ int DeviceWifiStart(void)
 {
     esp_err_t err;
     DevWifiInfo_t *info = &DevWifiInfo;
-    memset_s(info, sizeof(DevWifiInfo_t), 0, sizeof(*info));
+    MEMCPY_S(info, sizeof(DevWifiInfo_t), 0, sizeof(*info));
     for (unsigned i = 0; i < WIFI_MAX_CONFIG_SIZE; i++) {
         info->config[i].netId = WIFI_CONFIG_INVALID;
     }
@@ -557,7 +557,7 @@ WifiErrorCode RemoveDevice(int networkId)
     }
 
     WifiLock();
-    memset_s(&info->config[networkId], sizeof(WifiDeviceConfig), 0, sizeof(WifiDeviceConfig));
+    MEMCPY_S(&info->config[networkId], sizeof(WifiDeviceConfig), 0, sizeof(WifiDeviceConfig));
     info->config[networkId].netId = WIFI_CONFIG_INVALID;
     WifiUnlock();
     return WIFI_SUCCESS;
@@ -726,7 +726,7 @@ WifiErrorCode GetLinkedInfo(WifiLinkedInfo *result)
     if (!result) {
         return ERROR_WIFI_INVALID_ARGS;
     }
-    memset_s(result, sizeof(WifiLinkedInfo), 0, sizeof(WifiLinkedInfo));
+    MEMCPY_S(result, sizeof(WifiLinkedInfo), 0, sizeof(WifiLinkedInfo));
     if (info->staStatus != WIFI_ACTIVE)
         return ERROR_WIFI_NOT_STARTED;
 
@@ -780,7 +780,7 @@ WifiErrorCode GetStationList(StationInfo *result, unsigned int *size)
     if (*size < staNum) {
         staNum = *size;
     }
-    memset_s(result, (sizeof(result[0]) * staNum), 0, sizeof(result[0]) * staNum);
+    MEMCPY_S(result, (sizeof(result[0]) * staNum), 0, sizeof(result[0]) * staNum);
     for (unsigned int i = 0; i < staNum; i++) {
         MEMCPY_S(result[i].macAddress, sizeof(result[i].macAddress),
                  wifi_sta_list.sta[i].mac, sizeof(wifi_sta_list.sta[i].mac));

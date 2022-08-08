@@ -78,6 +78,7 @@ BtError GetLocalAddr(unsigned char *mac, unsigned int len)
     }
     ret = memcpy_s(mac, len, esp_bt_dev_get_address(), len);
     if (!ret) {
+        printf("memcpy_s fail!!\n");
         return ret;
     }
     return BT_SUCCESS;
@@ -118,7 +119,12 @@ BtError BleGattcDisconnect(int clientId, int conn_id)
 BtError BleGapDisconnect(BdAddr remote_device)
 {
     uint8_t BdAddrs[OHOS_BD_ADDR_LEN];
-    memcpy_s(BdAddrs, sizeof(BdAddrs), remote_device.addr, sizeof(remote_device.addr));
+    int ret = 0;
+    ret = memcpy_s(BdAddrs, sizeof(BdAddrs), remote_device.addr, sizeof(remote_device.addr));
+    if (!ret) {
+        printf("memcpy_s fail!!\n");
+        return ret;
+    }
     return esp_ble_gap_disconnect(BdAddrs);
 }
 
@@ -232,7 +238,12 @@ BtError BleGattcRegisterForNotify(GattInterfaceType gattc_if,
                                   uint16_t handle)
 {
     uint8_t BdAddrs[OHOS_BD_ADDR_LEN];
-    memcpy_s(BdAddrs, sizeof(BdAddrs), server_bda.addr, sizeof(server_bda.addr));
+    int ret = 0;
+    ret = memcpy_s(BdAddrs, sizeof(BdAddrs), server_bda.addr, sizeof(server_bda.addr));
+    if (!ret) {
+        printf("memcpy_s fail!!\n");
+        return ret;
+    }
     return esp_ble_gattc_register_for_notify(gattc_if, BdAddrs, handle);
 }
 
