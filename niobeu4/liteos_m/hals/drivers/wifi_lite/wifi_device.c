@@ -84,7 +84,7 @@ static DevWifiInfo_t DevWifiInfo = {0};
 static const char TAG[] = {"WifiLite."};
 static const char NullBssid[WIFI_MAC_LEN] = {0, 0, 0, 0, 0, 0};
 
-static void MEMCPY_S(void *dst, int dstSize, void *src, int srcSize)
+static void MEMCPY_S(VOID *dst, int dstSize, VOID *src, int srcSize)
 {
     if ((dst == NULL) || (src == NULL)) {
         return;
@@ -261,13 +261,13 @@ static void SendOnHotspotStateChanged(DevWifiInfo_t *info, WifiEventState event)
     }
 }
 
-static void event_got_ip_handler(void *arg, esp_event_base_t event_base,
-                                 int32_t event_id, void *event_data)
+static void event_got_ip_handler(VOID *arg, esp_event_base_t event_base,
+                                 int32_t event_id, VOID *event_data)
 {
     DevWifiInfo.ip_ok = 1;
 }
 
-static void wifi_event_scan_down_proc(void *event_data)
+static void wifi_event_scan_down_proc(VOID *event_data)
 {
     uint16_t size = 0;
     DevWifiInfo.scan_ok = 1;
@@ -275,7 +275,7 @@ static void wifi_event_scan_down_proc(void *event_data)
     SendOnWifiScanStateChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE, size);
 }
 
-static void wifi_event_sta_connected_proc(void *event_data)
+static void wifi_event_sta_connected_proc(VOID *event_data)
 {
     WifiLinkedInfo linkInfo = {0};
     wifi_ap_record_t ap_info;
@@ -288,7 +288,7 @@ static void wifi_event_sta_connected_proc(void *event_data)
     SendOnWifiConnectionChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE, &linkInfo);
 }
 
-static void wifi_event_sta_disconnected_proc(void *event_data)
+static void wifi_event_sta_disconnected_proc(VOID *event_data)
 {
     WifiLinkedInfo linkInfo = {0};
     wifi_event_sta_disconnected_t *disconnected = (wifi_event_sta_disconnected_t *)event_data;
@@ -299,7 +299,7 @@ static void wifi_event_sta_disconnected_proc(void *event_data)
     SendOnWifiConnectionChanged(&DevWifiInfo, WIFI_STATE_NOT_AVAILABLE, &linkInfo);
 }
 
-static void wifi_event_ap_connected_proc(void *event_data)
+static void wifi_event_ap_connected_proc(VOID *event_data)
 {
     StationInfo staInfo = {0};
     wifi_event_ap_staconnected_t *connect_event = (wifi_event_ap_staconnected_t *)event_data;
@@ -307,7 +307,7 @@ static void wifi_event_ap_connected_proc(void *event_data)
     SendOnHotspotStaJoin(&DevWifiInfo, &staInfo);
 }
 
-static void wifi_event_ap_disconnected_proc(void *event_data)
+static void wifi_event_ap_disconnected_proc(VOID *event_data)
 {
     StationInfo staInfo = {0};
     wifi_event_ap_stadisconnected_t *disconnect_event = (wifi_event_ap_stadisconnected_t *)event_data;
@@ -317,13 +317,13 @@ static void wifi_event_ap_disconnected_proc(void *event_data)
     SendOnHotspotStaLeave(&DevWifiInfo, &staInfo);
 }
 
-static void wifi_event_ap_start_proc(void *event_data)
+static void wifi_event_ap_start_proc(VOID *event_data)
 {
     SendOnHotspotStateChanged(&DevWifiInfo, WIFI_STATE_AVAILABLE);
 }
 
-static void event_handler(void *arg, esp_event_base_t event_base,
-                          int32_t event_id, void *event_data)
+static void event_handler(VOID *arg, esp_event_base_t event_base,
+                          int32_t event_id, VOID *event_data)
 {
     LOG("event=%d", event_id);
     switch (event_id) {
@@ -354,7 +354,7 @@ int DeviceWifiStart(void)
 {
     esp_err_t err;
     DevWifiInfo_t *info = &DevWifiInfo;
-    memset_s(info, sizeof(DevWifiInfo_t), 0, sizeof(*info));
+    MEMCPY_S(info, sizeof(DevWifiInfo_t), 0, sizeof(*info));
     for (unsigned i = 0; i < WIFI_MAX_CONFIG_SIZE; i++) {
         info->config[i].netId = WIFI_CONFIG_INVALID;
     }
@@ -557,7 +557,7 @@ WifiErrorCode RemoveDevice(int networkId)
     }
 
     WifiLock();
-    memset_s(&info->config[networkId], sizeof(WifiDeviceConfig), 0, sizeof(WifiDeviceConfig));
+    MEMCPY_S(&info->config[networkId], sizeof(WifiDeviceConfig), 0, sizeof(WifiDeviceConfig));
     info->config[networkId].netId = WIFI_CONFIG_INVALID;
     WifiUnlock();
     return WIFI_SUCCESS;
@@ -726,7 +726,7 @@ WifiErrorCode GetLinkedInfo(WifiLinkedInfo *result)
     if (!result) {
         return ERROR_WIFI_INVALID_ARGS;
     }
-    memset_s(result, sizeof(WifiLinkedInfo), 0, sizeof(WifiLinkedInfo));
+    MEMCPY_S(result, sizeof(WifiLinkedInfo), 0, sizeof(WifiLinkedInfo));
     if (info->staStatus != WIFI_ACTIVE)
         return ERROR_WIFI_NOT_STARTED;
 
@@ -780,7 +780,7 @@ WifiErrorCode GetStationList(StationInfo *result, unsigned int *size)
     if (*size < staNum) {
         staNum = *size;
     }
-    memset_s(result, (sizeof(result[0]) * staNum), 0, sizeof(result[0]) * staNum);
+    MEMCPY_S(result, (sizeof(result[0]) * staNum), 0, sizeof(result[0]) * staNum);
     for (unsigned int i = 0; i < staNum; i++) {
         MEMCPY_S(result[i].macAddress, sizeof(result[i].macAddress),
                  wifi_sta_list.sta[i].mac, sizeof(wifi_sta_list.sta[i].mac));

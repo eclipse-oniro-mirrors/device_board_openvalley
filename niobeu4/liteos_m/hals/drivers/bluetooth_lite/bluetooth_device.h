@@ -135,7 +135,7 @@ typedef struct {
     uint16_t end_handle;
 } GattcGetChar;
 
-BtError BleGattcConnect(int clientId, void *func, const BdAddr *bdAddr, bool isAutoConnect,
+BtError BleGattcConnect(int clientId, VOID *func, const BdAddr *bdAddr, bool isAutoConnect,
                         BtTransportType transport);
 
 BtError BleGattcDisconnect(int clientId, int conn_id);
