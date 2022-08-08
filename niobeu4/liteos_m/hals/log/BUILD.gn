@@ -25,6 +25,6 @@ config("public"){
     "//base/hiviewdfx/hiview_lite",
     "//base/hiviewdfx/hilog_lite/frameworks/mini",
     "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
-    "//foundation/distributedschedule/samgr_lite/interfaces/kits/samgr"
+    "//foundation/systemabilitymgr/samgr_lite/interfaces/kits/samgr"
   ]
 }
