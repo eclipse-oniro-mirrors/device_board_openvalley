@@ -35,11 +35,6 @@
 void* __attribute__((weak)) OHOS_APP_FUNC_ENTRY = NULL;
 void* __attribute__((weak)) BEFORE_OHOS_RUN_FUNC_ENTRY = NULL;
 
-void __attribute__((weak)) OHOS_SystemInit(void)
-{
-    return 0;
-}
-
 int __attribute__((weak)) DeviceManagerStart(void)
 {
     return 0;

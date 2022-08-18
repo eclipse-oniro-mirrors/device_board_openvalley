@@ -21,13 +21,13 @@
 #include "los_compiler.h"
 #include "los_memory.h"
 #include "los_task.h"
+#include "los_fs.h"
 #include "ohos_init.h"
 #include "ohos_types.h"
 
 static const char *LITTLEFS_MOUNT_POINT = "/Openvalley";
 static const char TAG[] = {"Littlefs"};
 #define LFS_LOG printf
-#define LSF_ERROR (-1)
 
 #include "esp_partition.h"
 /* ESP32的分区类型， 0x00-0x3F系统保留分区类型，0x40-0xFE自定义分区 */
@@ -57,84 +57,75 @@ const char *GetLittlefsMountPoint(void)
 }
 
 /* lfs读接口 */
-static int LittlefsRead(const struct lfs_config *cfg, lfs_block_t block,
+int littlefs_block_read(const struct lfs_config *cfg, lfs_block_t block,
                         lfs_off_t off, char *buffer, lfs_size_t size)
 {
     return spi_flash_read((size_t)cfg->context + cfg->block_size * block + off, buffer, size);
 }
 
 /* lfs写接口 */
-static int LittlefsProg(const struct lfs_config *cfg, lfs_block_t block,
-                        lfs_off_t off, const char *buffer, lfs_size_t size)
+int littlefs_block_write(const struct lfs_config *cfg, lfs_block_t block,
+                        lfs_off_t off, const void *buffer, lfs_size_t size)
 {
     return spi_flash_write((size_t)cfg->context + cfg->block_size * block + off, buffer, size);
 }
 
 /* lfs擦除接口 */
-static int LittlefsErase(const struct lfs_config *cfg, lfs_block_t block)
+int littlefs_block_erase(const struct lfs_config *cfg, lfs_block_t block)
 {
     return spi_flash_erase_range((size_t)cfg->context + cfg->block_size * block, cfg->block_size);
 }
 
 /* lfs同步接口 */
-static int LittlefsSync(const struct lfs_config *cfg)
+int littlefs_block_sync(const struct lfs_config *cfg)
 {
     return LFS_ERR_OK;
 }
 
-/* 接口兼容 */
-int __attribute__((weak)) SetDefaultMountPath(int pathNameIndex, const char *target)
+static int littlefs_config(struct PartitionCfg *pCfg)
 {
-    return LOS_OK;
-}
-
-/* lfs初始化 */
-static INT32 LittlefsInit(void)
-{
-    int err = 0;
-    static struct lfs_config s_lfsConfig = {0};   /* lfs配置变量，必须是全局内存或静态内存 */
-    s_lfsConfig.read = LittlefsRead;   /* lfs 读接口 */
-    s_lfsConfig.prog = LittlefsProg;   /* lfs 写接口 */
-    s_lfsConfig.erase = LittlefsErase; /* lfs 擦除接口 */
-    s_lfsConfig.sync = LittlefsSync;   /* lfs 同步接口 */
 #if defined(LITTLEFS_PHYS_ADDR) && defined(BLOCK_COUNT)
-    s_lfsConfig.context = (void *)LITTLEFS_PHYS_ADDR;
-    s_lfsConfig.block_count = BLOCK_COUNT,
+    pCfg->partNo = (void *)LITTLEFS_PHYS_ADDR;
+    pCfg->blockCount = BLOCK_COUNT,
 #else
     const esp_partition_t *part;
     part = esp_partition_find_first(LITTLEFS_PARTITION_TYPE, LITTLEFS_PARTITION_SUBTYPE, LITTLEFS_PARTITION_NAME);
     if (!part) {
         LFS_LOG("Error %s.esp_partition_find_first\n", TAG);
-        return LSF_ERROR;
+        return LOS_NOK;
     }
-    s_lfsConfig.context = (void *)part->address;
-    s_lfsConfig.block_count = part->size / BLOCK_SIZE;
+    pCfg->partNo = (void *)part->address;
+    pCfg->blockCount = part->size / BLOCK_SIZE;
 #endif
-    s_lfsConfig.read_size = READ_SIZE;
-    s_lfsConfig.prog_size = PROG_SIZE;
-    s_lfsConfig.block_size = BLOCK_SIZE;
-    s_lfsConfig.cache_size = CACHE_SIZE;
-    s_lfsConfig.lookahead_size = LOOKAHEAD_SIZE;
-    s_lfsConfig.block_cycles = BLOCK_CYCLES;
-    s_lfsConfig.read_buffer = NULL;
-    s_lfsConfig.prog_buffer = NULL;
-    s_lfsConfig.lookahead_buffer = NULL;
-    s_lfsConfig.name_max = 0;
-    s_lfsConfig.file_max = 0;
-    s_lfsConfig.attr_max = 0;
-    err = SetDefaultMountPath(0, LITTLEFS_MOUNT_POINT); /* 设置缺省挂载点 */
-    if (err != LOS_OK) {
-        LFS_LOG("Error %s.SetDefaultMountPath=0x%X\n", TAG, err);
-        return LSF_ERROR;
-    }
-    err = mount(NULL, LITTLEFS_MOUNT_POINT, "littlefs", 0, &s_lfsConfig); /* 设置挂载Littlefs */
-    if (err != LOS_OK) {
-        LFS_LOG("Error %s.mount=0x%X\n", TAG, err);
-        return LSF_ERROR;
-    }
-    LFS_LOG("%s.mount=%s addr=0x%X size=%dK OK!!!\n", TAG, LITTLEFS_MOUNT_POINT, (size_t)s_lfsConfig.context,
-            calc_lfs_size(s_lfsConfig.block_count, s_lfsConfig.block_size));
-    return 0;
+    pCfg->readSize = READ_SIZE;
+    pCfg->writeSize = PROG_SIZE;
+    pCfg->cacheSize = CACHE_SIZE;
+    pCfg->blockCycles = BLOCK_CYCLES;
+    pCfg->lookaheadSize = LOOKAHEAD_SIZE;
+    pCfg->blockSize = BLOCK_SIZE;
+    pCfg->readFunc = NULL;
+    pCfg->writeFunc = NULL;
+    pCfg->eraseFunc = NULL;
+    return LOS_OK;
 }
 
-SYS_SERVICE_INIT(LittlefsInit);
+/* lfs初始化 */
+INT32 LittlefsInit(void)
+{
+    int err = 0;
+    struct PartitionCfg cfg  = {0};
+    if (littlefs_config(&cfg) == LOS_NOK) {
+        return LOS_NOK;
+    }
+    /* 设置挂载Littlefs */
+    err = mount(NULL, LITTLEFS_MOUNT_POINT, "littlefs", 0, &cfg);
+    if (err != LOS_OK) {
+        LFS_LOG("Error %s.mount=0x%X\n", TAG, err);
+        return LOS_NOK;
+    }
+    LFS_LOG("%s.mount=%s addr=0x%X size=%dK OK!!!\n", TAG, LITTLEFS_MOUNT_POINT, (size_t)cfg.partNo,
+            calc_lfs_size(cfg.blockCount, cfg.blockSize));
+    return LOS_OK;
+}
+
+SYS_FEATURE_INIT(LittlefsInit);
