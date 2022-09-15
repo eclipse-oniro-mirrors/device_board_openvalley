@@ -290,4 +290,4 @@ Windows下可以使用`Flash_Download_Tool`工具进行烧录，点击[这里](h
 
 ## 联系
 
-如果您在开发过程中有问题，请在仓库[issues](https://gitee.com/openharmony-sig/device_board_openvalley/issues)中提问。
+如果您在开发过程中有问题，请在仓库[issues](https://gitee.com/openharmony/device_board_openvalley/issues)中提问。
