@@ -182,10 +182,8 @@ source ~/.bashrc
 
 ```shell
 mkdir niobeu4_src && cd niobeu4_src
-repo init -u https://gitee.com/openharmony-sig/manifest.git -m devboard_niobeu4.xml
+repo init -u https://gitee.com/openharmony/manifest.git -b master -m chipsets/niobeu4.xml -g ohos:mini
 repo sync -c
-repo forall -c 'git lfs pull'
-repo start master --all
 ```
 
 ## 构建源码
