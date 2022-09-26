@@ -15,13 +15,9 @@ import("//kernel/liteos_m/liteos.gni")
 
 module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {
-  sources = [
-    "ohos_mem_pool.c",
-  ]
+  sources = [ "ohos_mem_pool.c" ]
 }
 
-config("public"){
-  include_dirs = [ 
-    "//utils/native/lite/memory/include",
-  ]
+config("public") {
+  include_dirs = [ "//commonlibrary/utils_lite/memory/include" ]
 }
