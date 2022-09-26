@@ -15,14 +15,12 @@ import("//kernel/liteos_m/liteos.gni")
 
 module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {
-  sources = [
-    "syscalls.c",
-  ]
-  include_dirs = [ 
-    "//utils/native/lite/memory/include",
+  sources = [ "syscalls.c" ]
+  include_dirs = [
+    "//commonlibrary/utils_lite/memory/include",
     "//base/hiviewdfx/hiview_lite",
     "//base/hiviewdfx/hilog_lite/frameworks/mini",
     "//base/hiviewdfx/hilog_lite/interfaces/native/kits/hilog_lite",
-    "//foundation/systemabilitymgr/samgr_lite/interfaces/kits/samgr"
+    "//foundation/systemabilitymgr/samgr_lite/interfaces/kits/samgr",
   ]
 }

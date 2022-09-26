@@ -17,12 +17,11 @@ kernel_type = "liteos_m"
 # Kernel version.
 kernel_version = "3.0.0"
 
-
 # Board arch, e.g.  "armv7-a", "rv32imac".
 board_arch = ""
 
-board="esp32u4"
-board_cpu=""
+board = "esp32u4"
+board_cpu = ""
 
 # Toolchain name used for system compiling.
 # E.g. gcc-arm-none-eabi, arm-linux-harmonyeabi-gcc, ohos-clang,  riscv32-unknown-elf.
@@ -70,8 +69,8 @@ board_cxx_flags = board_cflags
 board_ld_flags = []
 
 # Board related headfiles search path.
-board_include_dirs = [ 
-  "//utils/native/lite/include",
+board_include_dirs = [
+  "//commonlibrary/utils_lite/include",
   "//device/soc/esp/esp32/components/osal/include",
   "//device/soc/esp/esp32/components/osal/port/xtensa/include",
 ]
