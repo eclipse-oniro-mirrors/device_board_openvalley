@@ -20,7 +20,7 @@ lite_library("hal_update_static") {
     "update_adapter.c",
   ]
   include_dirs = [ 
-    "//base/update/ota_lite/hals",
-    "//base/update/ota_lite/interfaces/kits",
+    "//base/update/sys_installer_lite/hals",
+    "//base/update/sys_installer_lite/interfaces/kits",
   ]
 }
