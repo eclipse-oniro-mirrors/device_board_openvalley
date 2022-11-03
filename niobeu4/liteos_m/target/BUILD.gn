@@ -14,56 +14,52 @@
 import("//kernel/liteos_m/liteos.gni")
 module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {
-  sources = [
-    "src/target_startup.c",
-  ]
-  deps = [
-    "//vendor/openvalley/niobeu4/demo:demo",
-  ]
+  sources = [ "src/target_startup.c" ]
+  deps = [ "//vendor/openvalley/niobeu4/demo:demo" ]
 }
 
 config("public") {
-  ESP_SDK_PATH="//device/soc/esp/esp32/components/"
+  ESP_SDK_PATH = "//device/soc/esp/esp32/components/"
   include_dirs = [
     ".",
     "include",
-    ESP_SDK_PATH+"esp_rom/include",
-    ESP_SDK_PATH+"esp_rom/esp32",
-    ESP_SDK_PATH+"esp_rom/include/esp32",
-    ESP_SDK_PATH+"spi_flash/include",
-    ESP_SDK_PATH+"spiffs/include",
-    ESP_SDK_PATH+"lwip",
-    ESP_SDK_PATH+"lwip/lwip/src/include",
-    ESP_SDK_PATH+"lwip/port/esp32/include",
-    ESP_SDK_PATH+"esp_common/include",
-    ESP_SDK_PATH+"driver/include",
+    ESP_SDK_PATH + "esp_rom/include",
+    ESP_SDK_PATH + "esp_rom/esp32",
+    ESP_SDK_PATH + "esp_rom/include/esp32",
+    ESP_SDK_PATH + "spi_flash/include",
+    ESP_SDK_PATH + "spiffs/include",
+    ESP_SDK_PATH + "lwip",
+    ESP_SDK_PATH + "lwip/lwip/src/include",
+    ESP_SDK_PATH + "lwip/port/esp32/include",
+    ESP_SDK_PATH + "esp_common/include",
+    ESP_SDK_PATH + "driver/include",
     ESP_SDK_PATH,
-    ESP_SDK_PATH+"xtensa/include",
-    ESP_SDK_PATH+"esp_system/include",
-    ESP_SDK_PATH+"soc/esp32/include",
-    ESP_SDK_PATH+"hal/include",
-    ESP_SDK_PATH+"hal/esp32/include",
-    ESP_SDK_PATH+"soc/include",
-    ESP_SDK_PATH+"esp_rom/include",
-    ESP_SDK_PATH+"freertos/include",
-    ESP_SDK_PATH+"freertos/port/xtensa/include",
-    ESP_SDK_PATH+"xtensa/esp32/include",
-    ESP_SDK_PATH+"esp_timer/include",
-    ESP_SDK_PATH+"newlib/platform_include",
-    ESP_SDK_PATH+"esp_hw_support/include",
-    ESP_SDK_PATH+"heap/include",
-    ESP_SDK_PATH+"log/include",
-    ESP_SDK_PATH+"hal/esp32/include",
-    ESP_SDK_PATH+"hal/include",
-    ESP_SDK_PATH+"spi_flash/include",
-    ESP_SDK_PATH+"nvs_flash/include",
-    ESP_SDK_PATH+"bt/include/esp32/include",
-    ESP_SDK_PATH+"bt/host/bluedroid/api/include/api",
-    ESP_SDK_PATH+"log/include",  
+    ESP_SDK_PATH + "xtensa/include",
+    ESP_SDK_PATH + "esp_system/include",
+    ESP_SDK_PATH + "soc/esp32/include",
+    ESP_SDK_PATH + "hal/include",
+    ESP_SDK_PATH + "hal/esp32/include",
+    ESP_SDK_PATH + "soc/include",
+    ESP_SDK_PATH + "esp_rom/include",
+    ESP_SDK_PATH + "freertos/include",
+    ESP_SDK_PATH + "freertos/port/xtensa/include",
+    ESP_SDK_PATH + "xtensa/esp32/include",
+    ESP_SDK_PATH + "esp_timer/include",
+    ESP_SDK_PATH + "newlib/platform_include",
+    ESP_SDK_PATH + "esp_hw_support/include",
+    ESP_SDK_PATH + "heap/include",
+    ESP_SDK_PATH + "log/include",
+    ESP_SDK_PATH + "hal/esp32/include",
+    ESP_SDK_PATH + "hal/include",
+    ESP_SDK_PATH + "spi_flash/include",
+    ESP_SDK_PATH + "nvs_flash/include",
+    ESP_SDK_PATH + "bt/include/esp32/include",
+    ESP_SDK_PATH + "bt/host/bluedroid/api/include/api",
+    ESP_SDK_PATH + "log/include",
   ]
-  lib_dirs = [ 
-    rebase_path(ESP_SDK_PATH+"libs"),
-    "$root_out_dir/libs"
+  lib_dirs = [
+    rebase_path(ESP_SDK_PATH + "libs"),
+    "$root_out_dir/libs",
   ]
   ldflags = [
     "-nostdlib",
@@ -105,20 +101,24 @@ config("public") {
     "-Wl,--wrap=LOS_MemFree",
     "-Wl,--wrap=LOS_MemAllocAlign",
     "-Wl,--wrap=OsShellCmdFree",
-#    "-Wl,--wrap=_exit",
-#    "-Wl,--wrap=ioctl",
-#    "-Wl,--wrap=LOS_FsMount",
+
+    #    "-Wl,--wrap=_exit",
+    #    "-Wl,--wrap=ioctl",
+    #    "-Wl,--wrap=LOS_FsMount",
     "-u__cxx_fatal_exception",
     "-Tesp32_out.ld",
     "-uld_include_panic_highint_hdl",
     "-Tesp32.project.ld",
     "-Tesp32.peripherals.ld",
+
     # "-Tesp32.rom.ld",
     "-Tesp32.rom.libgcc.ld",
+
     # "-Tesp32.rom.syscalls.ld",
     # "-Tesp32.rom.newlib-data.ld",
     # "-Tesp32.rom.api.ld",
     "-Tesp32.rom.tw.ld",
+
     # "-Tesp32.rom.newlib-funcs.ld",
     # "-Tesp32.rom.newlib-time.ld",
     "-Wl,--wrap=longjmp",
@@ -131,7 +131,7 @@ config("public") {
     "-Wl,-EL",
     "-fno-rtti",
   ]
-  defines = ["__XTENSA_LX6__=1"]
+  defines = [ "__XTENSA_LX6__=1" ]
   libs = [
     "c",
     "m",
@@ -146,30 +146,30 @@ config("public") {
     "xt_hal",
   ]
 
-  if(build_xts) {
+  if (build_xts) {
     ldflags += [
       "-Wl,--whole-archive",
       "-lbootstrap",
       "-lbroadcast",
       "-lhctest",
 
-      "-lmodule_ActsSamgrTest",
+      # "-lmodule_ActsSamgrTest",
+      # "-lmodule_ActsUtilsFileTest",
+      # "-lmodule_ActsKvStoreTest",
+      # "-lmodule_ActsParameterTest",
+      # "-lmodule_ActsBootstrapTest",
 
-      "-lmodule_ActsUtilsFileTest",
-      "-lmodule_ActsKvStoreTest",
-      #"-lmodule_ActsParameterTest",
-      "-lmodule_ActsBootstrapTest",
       "-lmodule_ActsDfxFuncTest",
       "-lmodule_ActsHieventLiteTest",
 
-      "-lmodule_ActsWifiIotTest",
-      "-lmodule_ActsUpdaterFuncTest",
+      # "-lmodule_ActsWifiIotTest",
+      # "-lmodule_ActsUpdaterFuncTest",
 
-      "-lhuks_test_common",
-      "-lmodule_ActsHuksHalFunctionTest",
+      # "-lhuks_test_common",
+      # "-lmodule_ActsHuksHalFunctionTest",
       "-Wl,--no-whole-archive",
     ]
-    defines += [ 
+    defines += [
       "CONFIG_I2C_SUPPORT",
       "CONFIG_PWM_SUPPORT",
       "CONFIG_BUILD_TYPE_TEST",
