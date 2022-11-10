@@ -16,10 +16,8 @@ import("//build/lite/ndk/ndk.gni")
 
 lite_library("hal_update_static") {
   target_type = "static_library"
-  sources = [
-    "update_adapter.c",
-  ]
-  include_dirs = [ 
+  sources = [ "update_adapter.c" ]
+  include_dirs = [
     "//base/update/sys_installer_lite/hals",
     "//base/update/sys_installer_lite/interfaces/kits",
   ]
