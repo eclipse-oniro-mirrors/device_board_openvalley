@@ -59,6 +59,7 @@
         <filefilterlist>
             <filefilter name="copyrightPolicyFilter" desc="Filters for copyright header policies">
                 <filteritem type="filepath" name="EULA" desc=""/>
+                <filteritem type="filepath" name="niobeu4/liteos_m/hdf_drivers" desc="hdf drivers"/>
             </filefilter>
             <filefilter name="binaryFileTypePolicyFilter" desc="Filters for binaryFile" >
                 <filteritem type="filename" name="*.png" desc="all so file have check "/>
