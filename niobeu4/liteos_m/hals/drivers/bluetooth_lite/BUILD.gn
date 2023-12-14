@@ -17,17 +17,18 @@ module_name = get_path_info(rebase_path("."), "name")
 kernel_module(module_name) {
   sources = [
     "bluetooth_device.c",
+    "bluetooth_service.c",
   ]
 
-  ESP_SDK_PATH="//device/soc/esp/esp32/components/"
+  ESP_SDK_PATH = "//device/soc/esp/esp32/components/"
   include_dirs = [
-    ESP_SDK_PATH+"bt/include/esp32/include",
+    ESP_SDK_PATH + "bt/include/esp32/include",
     "//foundation/communication/bluetooth/interfaces/inner_api/include/c_header",
-    ESP_SDK_PATH+"bt/host/bluedroid/api/include/api",
-    ESP_SDK_PATH+"log/include",
+    ESP_SDK_PATH + "bt/host/bluedroid/api/include/api",
+    ESP_SDK_PATH + "log/include",
   ]
 }
 
 config("public") {
-  include_dirs = ["."]
+  include_dirs = [ "." ]
 }

@@ -25,6 +25,7 @@
 #include "esp_gatt_common_api.h"
 #include "esp_log.h"
 #include "ohos_bt_def.h"
+#include "esp_system.h"
 
 #define GattInterfaceType esp_gatt_if_t
 #define BleGapParam esp_ble_gap_cb_param_t
@@ -178,7 +179,7 @@ BtError GetLocalAddr(unsigned char *mac, unsigned int len);
 
 BtError BleStartScan(void);
 
-BtError BleStopScan(void);
+BtError BleStopScan2(void);
 
 BtError BleGapUpdateConnParams(BleConnUpdateParams *params);
 
@@ -187,4 +188,5 @@ BtError BleGatSetScanParams(BleScanParams *scan_params);
 BtError BleGapDisconnect(BdAddr remote_device);
 
 uint8_t *BleResolveAdvData(uint8_t *adv_data, uint8_t type, uint8_t *length);
+
 #endif

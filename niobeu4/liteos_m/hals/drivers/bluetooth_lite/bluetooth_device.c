@@ -92,7 +92,7 @@ BtError BleStartScan(void)
     return esp_ble_gap_start_scanning(ScanTime);
 }
 
-BtError BleStopScan(void)
+BtError BleStopScan2(void)
 {
     if (esp_bluedroid_get_status() != ESP_BLUEDROID_STATUS_ENABLED) {
         return ESP_ERR_INVALID_STATE;
