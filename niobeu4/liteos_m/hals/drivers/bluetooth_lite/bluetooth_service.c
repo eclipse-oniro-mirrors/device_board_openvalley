@@ -241,7 +241,7 @@ BtError BleGattsAddCharDescr(uint16_t serviceHandle, BtUuid *descrUuid, uint16_t
  */
 BtError BleGattsAddChar(uint16_t serviceHandle, GattsChar *character)
 {
-    if ((charUuid == NULL) || (character == NULL) || (character->charVal == NULL)) {
+    if ((character == NULL) || (character->charUuid == NULL) || (character->charVal == NULL)) {
         BT_DEBUG("BleGattsAddChar param is NULL! \n");
         return BT_PARAMINPUT_ERROR;
     }
